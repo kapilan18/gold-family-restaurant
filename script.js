@@ -3,7 +3,7 @@
  * Handles Auth Sync, Shopping Cart Drawer, Backend Orders, Table Booking & UI Interactivity
  */
 
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = 'http://https://gold-family-restaurant.onrender.com/api';
 
 // ==========================================
 // 1. INITIALIZATION ON DOM LOAD

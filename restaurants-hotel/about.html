@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Gold Family Restaurant & Luxury Dining</title>
+    <meta name="description" content="Discover the story, heritage, and culinary values of Gold Restaurant in Pudukkottai. Founded on authentic flavors, royal hospitality, and culinary excellence.">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- Custom Luxury CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-luxury sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <div class="brand-badge"><i class="fas fa-crown"></i></div>
+                <span>GOLD <span class="text-gold">RESTAURANT</span></span>
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarGold">
+                <i class="fas fa-bars text-gold fs-4"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarGold">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="menu.html">Menu</a></li>
+                    <li class="nav-item"><a class="nav-link" href="reservations.html">Reservations</a></li>
+                    <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+
+                <div class="nav-actions">
+                    <button class="nav-cart-btn" onclick="toggleCart()" title="View your cart">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span class="cart-count-badge" id="cartBadge" style="display: none;">0</span>
+                    </button>
+
+                    <div id="loginNavItem">
+                        <a href="login.html" class="btn btn-outline-gold btn-sm">
+                            <i class="fas fa-sign-in-alt me-1"></i> Login
+                        </a>
+                    </div>
+
+                    <div class="dropdown" id="userMenu" style="display: none;">
+                        <button class="user-dropdown-btn dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user-circle fs-5"></i>
+                            <span id="navbarUserName">User</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-dark-luxury dropdown-menu-end">
+                            <li><a class="dropdown-item" href="reservations.html"><i class="fas fa-calendar-check text-gold"></i> Bookings</a></li>
+                            <li><a class="dropdown-item" href="menu.html"><i class="fas fa-utensils text-gold"></i> Order Food</a></li>
+                            <li><hr class="dropdown-divider border-secondary"></li>
+                            <li><a class="dropdown-item text-danger" href="javascript:void(0)" onclick="logoutUser()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ================= PAGE BANNER ================= -->
+    <header class="page-banner">
+        <div class="container">
+            <span class="text-gold fw-bold text-uppercase letter-spacing-1 small">Our Heritage & Story</span>
+            <h1 class="display-4 text-white font-luxury mt-2">The Gold Restaurant Journey</h1>
+            <p>From time-honored recipes to a landmark of hospitality in Pudukkottai.</p>
+        </div>
+    </header>
+
+    <!-- ================= ABOUT MAIN STORY ================= -->
+    <section class="py-5">
+        <div class="container py-2">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6">
+                    <span class="text-gold fw-bold text-uppercase letter-spacing-1 small">Serving With Honor Since Day One</span>
+                    <h2 class="display-6 font-luxury my-3">Welcome to Gold Family Restaurant</h2>
+                    <p class="text-muted">
+                        Gold Restaurant was born out of a lifelong passion for culinary perfection. Situated conveniently at Hotel Sivalaya, opposite the iconic RKP Theatre in Pudukkottai, our restaurant has earned its reputation as the benchmark for authentic biryanis, tandoori grills, and memorable family dining.
+                    </p>
+                    <p class="text-muted">
+                        Our culinary philosophy is simple: never cut corners on quality. We source the finest Seeraga Samba and long-grain Basmati rice, farm-fresh poultry and meats, pure dairy ghee, and whole spices ground fresh in our kitchen each morning.
+                    </p>
+                    <p class="text-muted">
+                        From our celebrated <strong>Royal Mutton Dum Biryani</strong> to our signature <strong>Egyptian Charcoal BBQ</strong>, every dish is an artful balance of aromatics, smoky depth, and comforting warmth.
+                    </p>
+
+                    <div class="d-flex gap-3 mt-4">
+                        <a href="menu.html" class="btn btn-gold">
+                            <i class="fas fa-scroll me-2"></i> View Menu
+                        </a>
+                        <a href="reservations.html" class="btn btn-outline-gold">
+                            <i class="fas fa-chair me-2"></i> Book A Table
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="luxury-card p-4 p-md-5">
+                        <h4 class="font-luxury text-gold mb-4 text-center">Numbers that Speak For Us</h4>
+                        <div class="row g-4 text-center">
+                            <div class="col-6">
+                                <div class="stat-number">4.4★</div>
+                                <div class="stat-label">Google Rating</div>
+                            </div>
+                            <div class="col-6">
+                                <div class="stat-number">397+</div>
+                                <div class="stat-label">Verified Reviews</div>
+                            </div>
+                            <div class="col-6">
+                                <div class="stat-number">50+</div>
+                                <div class="stat-label">Royal Dishes</div>
+                            </div>
+                            <div class="col-6">
+                                <div class="stat-number">10k+</div>
+                                <div class="stat-label">Happy Guests</div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 pt-3 border-top border-secondary text-center">
+                            <p class="small text-muted mb-0">
+                                <em>"The finest Mutton Biryani and Charcoal BBQ in Pudukkottai with top-tier family ambience."</em>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= VALUES & PILLARS ================= -->
+    <section class="py-5" style="background: var(--bg-surface);">
+        <div class="container py-3">
+            <div class="text-center max-w-700 mx-auto mb-5">
+                <span class="text-gold fw-bold text-uppercase letter-spacing-1 small">Our Core Pillars</span>
+                <h2 class="display-6 mt-2">What Sets Gold Restaurant Apart</h2>
+                <div class="mx-auto" style="width: 50px; height: 3px; background: var(--gold-gradient); margin-top: 15px;"></div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="luxury-card p-4 h-100 text-center">
+                        <div class="brand-badge mx-auto mb-3" style="width: 56px; height: 56px; font-size: 1.5rem;"><i class="fas fa-fire"></i></div>
+                        <h4 class="font-luxury mb-2">Wood-Fired & Dum Cooking</h4>
+                        <p class="text-muted small mb-0">
+                            Our Biryanis are sealed in traditional handis and slow-cooked over burning embers to lock in every layer of aroma and moisture.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="luxury-card p-4 h-100 text-center">
+                        <div class="brand-badge mx-auto mb-3" style="width: 56px; height: 56px; font-size: 1.5rem;"><i class="fas fa-heart-pulse"></i></div>
+                        <h4 class="font-luxury mb-2">Purity & Hygiene</h4>
+                        <p class="text-muted small mb-0">
+                            Our modern commercial kitchen follows rigorous sanitization standards with no artificial enhancers or preservatives.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="luxury-card p-4 h-100 text-center">
+                        <div class="brand-badge mx-auto mb-3" style="width: 56px; height: 56px; font-size: 1.5rem;"><i class="fas fa-hand-holding-heart"></i></div>
+                        <h4 class="font-luxury mb-2">Royal Hospitality</h4>
+                        <p class="text-muted small mb-0">
+                            Whether you're visiting for an anniversary or ordering dinner at home, our dedicated team treats you like royalty.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="footer-luxury">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <div class="brand-badge" style="width: 32px; height: 32px; font-size: 0.9rem;"><i class="fas fa-crown"></i></div>
+                        <h4 class="mb-0 text-white font-luxury">GOLD RESTAURANT</h4>
+                    </div>
+                    <p class="small text-muted mb-0">
+                        Hotel Sivalaya, 9953/2, Opposite RKP Theatre, A M A Nagar, Pudukkottai, Tamil Nadu 622001
+                    </p>
+                </div>
+                <div class="col-lg-4 col-md-6 text-md-center">
+                    <h5>Orders & Support</h5>
+                    <p class="fs-5 text-gold fw-bold mb-0">091594 224449</p>
+                    <small class="text-muted">Available Daily 10:00 AM – 10:30 PM</small>
+                </div>
+                <div class="col-lg-4 col-md-6 text-md-end">
+                    <p class="small text-muted mb-0">&copy; 2026 Gold Restaurant & Luxury Fine Dining.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core Application Logic -->
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | Gold Family Restaurant & Luxury Dining</title>
+    <meta name="description" content="Create your Gold Restaurant membership account for faster online orders, table reservations, and exclusive culinary offers in Pudukkottai.">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- Custom Luxury CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        .auth-container {
+            min-height: calc(100vh - 80px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 15px;
+            background: radial-gradient(circle at 50% 30%, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+        }
+        .auth-card {
+            width: 100%;
+            max-width: 480px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-gold);
+            border-radius: var(--radius-lg);
+            padding: 36px 32px;
+            box-shadow: var(--shadow-card);
+        }
+        .input-group-luxury {
+            position: relative;
+        }
+        .input-group-luxury i.input-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gold-primary);
+            font-size: 1rem;
+        }
+        .input-group-luxury input {
+            padding-left: 42px;
+            padding-right: 42px;
+        }
+        .password-toggle-btn {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-luxury sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <div class="brand-badge"><i class="fas fa-crown"></i></div>
+                <span>GOLD <span class="text-gold">RESTAURANT</span></span>
+            </a>
+
+            <div class="ms-auto d-flex align-items-center gap-3">
+                <a href="index.html" class="nav-link text-muted small"><i class="fas fa-arrow-left me-1"></i> Back to Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ================= AUTH SECTION ================= -->
+    <main class="auth-container">
+        <div class="auth-card">
+            <div class="text-center mb-4">
+                <div class="brand-badge mx-auto mb-3" style="width: 60px; height: 60px; font-size: 1.6rem;">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <h3 class="font-luxury mb-1">Create Account</h3>
+                <p class="text-muted small">Join the Gold Dining Circle in Pudukkottai</p>
+            </div>
+
+            <!-- Alert Box -->
+            <div id="registerAlert" class="alert alert-danger py-2 small mb-3" style="display: none;" role="alert"></div>
+
+            <form id="registerForm">
+                <div class="mb-3">
+                    <label class="form-label-luxury">Full Name *</label>
+                    <div class="input-group-luxury">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" class="form-control-luxury" id="regName" required placeholder="Enter your full name">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label-luxury">Email Address *</label>
+                    <div class="input-group-luxury">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" class="form-control-luxury" id="regEmail" required placeholder="name@email.com">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label-luxury">Phone Number *</label>
+                    <div class="input-group-luxury">
+                        <i class="fas fa-phone input-icon"></i>
+                        <input type="tel" class="form-control-luxury" id="regPhone" required placeholder="091594 224449">
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label-luxury">Password * (Min 6 characters)</label>
+                    <div class="input-group-luxury">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" class="form-control-luxury" id="regPassword" minlength="6" required placeholder="Choose a secure password">
+                        <button type="button" class="password-toggle-btn" id="toggleRegPasswordBtn">
+                            <i class="fas fa-eye" id="regEyeIcon"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-gold w-100 py-3 fw-bold" id="registerSubmitBtn">
+                    <i class="fas fa-user-plus me-2"></i> Register Account
+                </button>
+            </form>
+
+            <div class="text-center mt-4 pt-3 border-top" style="border-color: rgba(255,255,255,0.08) !important;">
+                <p class="small text-muted mb-0">
+                    Already registered? 
+                    <a href="login.html" class="text-gold fw-bold ms-1">Sign In here</a>
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bootstrap 5 Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const API_BASE = 'http://localhost:5000/api';
+
+        // Toggle password visibility
+        const toggleBtn = document.getElementById('toggleRegPasswordBtn');
+        const passwordInput = document.getElementById('regPassword');
+        const eyeIcon = document.getElementById('regEyeIcon');
+
+        toggleBtn.addEventListener('click', () => {
+            const isPassword = passwordInput.type === 'password';
+            passwordInput.type = isPassword ? 'text' : 'password';
+            eyeIcon.className = isPassword ? 'fas fa-eye-slash' : 'fas fa-eye';
+        });
+
+        // Register submission
+        const form = document.getElementById('registerForm');
+        const alertBox = document.getElementById('registerAlert');
+        const submitBtn = document.getElementById('registerSubmitBtn');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            alertBox.style.display = 'none';
+
+            const name = document.getElementById('regName').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const phone = document.getElementById('regPhone').value.trim();
+            const password = passwordInput.value;
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Creating Account...';
+
+            try {
+                const response = await fetch(`${API_BASE}/auth/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, phone, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    if (data.token) {
+                        localStorage.setItem('token', data.token);
+                        localStorage.setItem('user', JSON.stringify(data.user));
+                    }
+
+                    alertBox.className = 'alert alert-success py-2 small mb-3';
+                    alertBox.textContent = 'Account created successfully! Redirecting...';
+                    alertBox.style.display = 'block';
+
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 800);
+                } else {
+                    alertBox.className = 'alert alert-danger py-2 small mb-3';
+                    alertBox.textContent = data.message || 'Registration failed.';
+                    alertBox.style.display = 'block';
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-user-plus me-2"></i> Register Account';
+                }
+            } catch (err) {
+                alertBox.className = 'alert alert-danger py-2 small mb-3';
+                alertBox.textContent = 'Cannot connect to server. Please ensure backend is running.';
+                alertBox.style.display = 'block';
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-user-plus me-2"></i> Register Account';
+            }
+        });
+    </script>
+</body>
+</html>

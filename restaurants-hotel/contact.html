@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Gold Family Restaurant & Luxury Dining</title>
+    <meta name="description" content="Get in touch with Gold Restaurant in Pudukkottai. Contact us for table reservations, catering queries, takeaway, or visit us opposite RKP Theatre.">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- Custom Luxury CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-luxury sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <div class="brand-badge"><i class="fas fa-crown"></i></div>
+                <span>GOLD <span class="text-gold">RESTAURANT</span></span>
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarGold">
+                <i class="fas fa-bars text-gold fs-4"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarGold">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="menu.html">Menu</a></li>
+                    <li class="nav-item"><a class="nav-link" href="reservations.html">Reservations</a></li>
+                    <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="contact.html">Contact</a></li>
+                </ul>
+
+                <div class="nav-actions">
+                    <button class="nav-cart-btn" onclick="toggleCart()" title="View your cart">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span class="cart-count-badge" id="cartBadge" style="display: none;">0</span>
+                    </button>
+
+                    <div id="loginNavItem">
+                        <a href="login.html" class="btn btn-outline-gold btn-sm">
+                            <i class="fas fa-sign-in-alt me-1"></i> Login
+                        </a>
+                    </div>
+
+                    <div class="dropdown" id="userMenu" style="display: none;">
+                        <button class="user-dropdown-btn dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user-circle fs-5"></i>
+                            <span id="navbarUserName">User</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-dark-luxury dropdown-menu-end">
+                            <li><a class="dropdown-item" href="reservations.html"><i class="fas fa-calendar-check text-gold"></i> Bookings</a></li>
+                            <li><a class="dropdown-item" href="menu.html"><i class="fas fa-utensils text-gold"></i> Order Food</a></li>
+                            <li><hr class="dropdown-divider border-secondary"></li>
+                            <li><a class="dropdown-item text-danger" href="javascript:void(0)" onclick="logoutUser()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ================= PAGE BANNER ================= -->
+    <header class="page-banner">
+        <div class="container">
+            <span class="text-gold fw-bold text-uppercase letter-spacing-1 small">We are at your service</span>
+            <h1 class="display-4 text-white font-luxury mt-2">Get in Touch</h1>
+            <p>Questions about parties, catering, bookings, or feedback? We would love to hear from you.</p>
+        </div>
+    </header>
+
+    <!-- ================= CONTACT MAIN SECTION ================= -->
+    <section class="py-5">
+        <div class="container py-2">
+            <div class="row g-5">
+
+                <!-- Left: Contact Details & Map -->
+                <div class="col-lg-5">
+                    <div class="luxury-card p-4 mb-4">
+                        <div class="d-flex align-items-start gap-3 mb-4">
+                            <div class="brand-badge flex-shrink-0"><i class="fas fa-map-marker-alt"></i></div>
+                            <div>
+                                <h5 class="text-white mb-1">Our Location</h5>
+                                <p class="text-muted small mb-0">
+                                    Hotel Sivalaya, 9953/2, Opposite RKP Theatre, A M A Nagar, Pudukkottai, Tamil Nadu 622001
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-start gap-3 mb-4">
+                            <div class="brand-badge flex-shrink-0"><i class="fas fa-phone-volume"></i></div>
+                            <div>
+                                <h5 class="text-white mb-1">Direct Call</h5>
+                                <p class="text-muted small mb-0">
+                                    <a href="tel:09159422449" class="text-gold fw-bold">091594 224449</a><br>
+                                    Daily from 10:00 AM to 10:30 PM
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-start gap-3">
+                            <div class="brand-badge flex-shrink-0"><i class="fas fa-envelope-open-text"></i></div>
+                            <div>
+                                <h5 class="text-white mb-1">Email Inquiries</h5>
+                                <p class="text-muted small mb-0">
+                                    <a href="mailto:contact@goldrestaurant.com" class="text-white">contact@goldrestaurant.com</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Google Map Embed -->
+                    <div class="luxury-card overflow-hidden" style="height: 250px;">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3923.6393166827014!2d78.81665!3d10.38075!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b00676b7ff017f7%3A0xbcfc11ff382894b8!2sPudukkottai%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1650000000000!5m2!1sen!2sin" 
+                            width="100%" 
+                            height="100%" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy">
+                        </iframe>
+                    </div>
+                </div>
+
+                <!-- Right: Contact Form -->
+                <div class="col-lg-7">
+                    <div class="luxury-card p-4 p-md-5">
+                        <div class="d-flex align-items-center gap-3 mb-4">
+                            <div class="brand-badge" style="width: 44px; height: 44px; font-size: 1.25rem;"><i class="fas fa-paper-plane"></i></div>
+                            <div>
+                                <h3 class="font-luxury mb-0">Send Us a Message</h3>
+                                <p class="text-muted small mb-0">Saved directly to our management inbox</p>
+                            </div>
+                        </div>
+
+                        <form id="contactForm">
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label-luxury">Full Name *</label>
+                                    <input type="text" class="form-control-luxury" id="name" required placeholder="Enter your name">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label-luxury">Email Address *</label>
+                                    <input type="email" class="form-control-luxury" id="email" required placeholder="name@email.com">
+                                </div>
+                            </div>
+
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label-luxury">Phone Number (Optional)</label>
+                                    <input type="tel" class="form-control-luxury" id="phone" placeholder="091594 224449">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label-luxury">Subject *</label>
+                                    <input type="text" class="form-control-luxury" id="subject" required placeholder="Catering / Party / Feedback">
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label-luxury">Your Message *</label>
+                                <textarea class="form-control-luxury" id="message" rows="5" required placeholder="Write your message here..."></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-gold btn-lg w-100">
+                                <i class="fas fa-paper-plane me-2"></i> Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="footer-luxury">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <div class="brand-badge" style="width: 32px; height: 32px; font-size: 0.9rem;"><i class="fas fa-crown"></i></div>
+                        <h4 class="mb-0 text-white font-luxury">GOLD RESTAURANT</h4>
+                    </div>
+                    <p class="small text-muted mb-0">
+                        Hotel Sivalaya, 9953/2, Opposite RKP Theatre, A M A Nagar, Pudukkottai, Tamil Nadu 622001
+                    </p>
+                </div>
+                <div class="col-lg-4 col-md-6 text-md-center">
+                    <h5>Orders & Enquiries</h5>
+                    <p class="fs-5 text-gold fw-bold mb-0">091594 224449</p>
+                    <small class="text-muted">Direct bookings and express takeaway orders</small>
+                </div>
+                <div class="col-lg-4 col-md-6 text-md-end">
+                    <p class="small text-muted mb-0">&copy; 2026 Gold Restaurant & Luxury Fine Dining.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core Application Logic -->
+    <script src="script.js"></script>
+</body>
+</html>

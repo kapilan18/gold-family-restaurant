@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initMenuFilters();
     initGalleryLightbox();
     highlightActiveNav();
+    initVisualEnhancements();
 });
 
 // ==========================================
@@ -819,4 +820,45 @@ function highlightActiveNav() {
             link.classList.remove('active');
         }
     });
+}
+
+// ==========================================
+// 9. PRESENTATION ENHANCEMENTS (NO API / DATA CHANGES)
+// ==========================================
+function initVisualEnhancements() {
+    const navbar = document.querySelector('.navbar-luxury');
+    const updateNavbar = () => {
+        if (navbar) navbar.classList.toggle('is-scrolled', window.scrollY > 12);
+    };
+    updateNavbar();
+    window.addEventListener('scroll', updateNavbar, { passive: true });
+
+    // Keep the Bootstrap mobile menu tidy after a navigation choice.
+    document.querySelectorAll('.navbar-luxury .nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            const collapseEl = document.querySelector('.navbar-luxury .navbar-collapse.show');
+            if (collapseEl && window.bootstrap) bootstrap.Collapse.getOrCreateInstance(collapseEl).hide();
+        });
+    });
+
+    if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const candidates = document.querySelectorAll(
+        '.luxury-card, .menu-item-card, .gallery-card, .page-banner + section, .footer-luxury'
+    );
+    candidates.forEach((element, index) => {
+        element.classList.add('reveal-on-scroll');
+        element.style.transitionDelay = `${Math.min((index % 4) * 65, 195)}ms`;
+    });
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.12 });
+
+    candidates.forEach(element => observer.observe(element));
 }

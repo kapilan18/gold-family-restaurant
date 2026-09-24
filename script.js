@@ -9,6 +9,13 @@ const API_BASE = 'https://gold-family-restaurant.onrender.com/api';
 // 1. INITIALIZATION ON DOM LOAD
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.navbar-toggler').forEach(button => {
+        button.setAttribute('aria-label', 'Toggle navigation');
+        if (!button.hasAttribute('aria-controls')) button.setAttribute('aria-controls', 'navbarGold');
+    });
+    document.querySelectorAll('.nav-cart-btn').forEach(button => {
+        button.setAttribute('aria-label', 'View your cart');
+    });
     initAuthSync();
     initCartSystem();
     initFormHandlers();
@@ -336,33 +343,33 @@ function injectCheckoutModal() {
                     <form id="checkoutOrderForm">
                         <div class="modal-body">
                             <div class="mb-3">
-                                <label class="form-label-luxury">Full Name *</label>
+                                <label class="form-label-luxury" for="checkoutName">Full Name *</label>
                                 <input type="text" class="form-control-luxury" id="checkoutName" required placeholder="Enter your full name">
                             </div>
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label class="form-label-luxury">Email Address *</label>
+                                    <label class="form-label-luxury" for="checkoutEmail">Email Address *</label>
                                     <input type="email" class="form-control-luxury" id="checkoutEmail" required placeholder="name@email.com">
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label class="form-label-luxury">Phone Number *</label>
+                                    <label class="form-label-luxury" for="checkoutPhone">Phone Number *</label>
                                     <input type="tel" class="form-control-luxury" id="checkoutPhone" required placeholder="091594 224449">
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label-luxury">Order Type *</label>
+                                <label class="form-label-luxury" for="checkoutOrderType">Order Type *</label>
                                 <select class="form-select-luxury" id="checkoutOrderType" onchange="toggleDeliveryField(this.value)">
-                                    <option value="Delivery">Doorstep Delivery (30-45 mins)</option>
+                                    <option value="Delivery">Doorstep Delivery</option>
                                     <option value="Takeaway">Express Takeaway (Pickup at Hotel Sivalaya)</option>
                                     <option value="Dine In">Dine In (Table Service)</option>
                                 </select>
                             </div>
                             <div class="mb-3" id="deliveryAddressGroup">
-                                <label class="form-label-luxury">Delivery Address *</label>
+                                <label class="form-label-luxury" for="checkoutAddress">Delivery Address *</label>
                                 <textarea class="form-control-luxury" id="checkoutAddress" rows="2" placeholder="Full door no, street name, landmark in Pudukkottai"></textarea>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label-luxury">Payment Method</label>
+                                <span class="form-label-luxury">Payment Method</span>
                                 <div class="payment-grid">
                                     <div class="payment-radio-card">
                                         <input type="radio" name="orderPayment" id="pay_cod" value="Cash on Delivery" checked>
@@ -391,7 +398,7 @@ function injectCheckoutModal() {
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label-luxury">Special Chef Instructions (Optional)</label>
+                                <label class="form-label-luxury" for="checkoutSpecialRequests">Special Chef Instructions (Optional)</label>
                                 <input type="text" class="form-control-luxury" id="checkoutSpecialRequests" placeholder="Less spicy, extra raita, etc.">
                             </div>
                             <div class="p-3 rounded mt-3" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-gold-subtle);">
@@ -538,7 +545,7 @@ function showOrderSuccessModal(orderNumber, name, orderType) {
                     <div class="p-3 mb-4 rounded" style="background: rgba(212,175,55,0.1); border: 1px solid var(--border-gold);">
                         <div class="small text-muted text-uppercase letter-spacing-1">Order Reference ID</div>
                         <div class="fs-4 fw-bold text-gold">${orderNumber}</div>
-                        <div class="small text-muted mt-1">Estimated delivery: 30 - 45 Minutes</div>
+                        <div class="small text-muted mt-1">Delivery timing will be confirmed with your order.</div>
                     </div>
                     <div>
                         <button type="button" class="btn btn-gold w-100" data-bs-dismiss="modal">

@@ -431,6 +431,13 @@ a:hover {
     margin-bottom: 6px;
 }
 
+.stat-word {
+    font-family: var(--font-body);
+    font-size: clamp(0.95rem, 2.1vw, 1.3rem);
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+}
+
 .stat-label {
     font-size: 0.85rem;
     color: var(--text-muted);

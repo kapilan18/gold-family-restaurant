@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Table Reservation | Gold Family Restaurant & Luxury Dining</title>
-    <meta name="description" content="Book a table at Gold Restaurant Pudukkottai. Choose Royal Gold Lounge, Family Dining, Rooftop Garden, or Private VIP Suite with instant booking confirmation.">
+    <title>Table Reservations | Gold Restaurant Pudukkottai</title>
+    <meta name="description" content="Submit a table reservation request to Gold Restaurant in Pudukkottai. Choose your preferred seating option, date, time, guests and occasion.">
 
     <meta name="robots" content="index, follow">
 
@@ -96,7 +96,7 @@
                             <div class="brand-badge" style="width: 44px; height: 44px; font-size: 1.25rem;"><i class="fas fa-chair"></i></div>
                             <div>
                                 <h3 class="font-luxury mb-0">Table Booking Application</h3>
-                                <p class="text-muted small mb-0">Direct instant confirmation with reference number</p>
+                                <p class="text-muted small mb-0">A booking reference is shown after a successful submission</p>
                             </div>
                         </div>
 
@@ -143,11 +143,11 @@
                             <!-- Guest & Date Info -->
                             <div class="row g-3 mb-3">
                                 <div class="col-md-4">
-                                    <label class="form-label-luxury">Date *</label>
+                                    <label class="form-label-luxury" for="resDate">Date *</label>
                                     <input type="date" class="form-control-luxury" id="resDate" required>
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="form-label-luxury">Preferred Time *</label>
+                                    <label class="form-label-luxury" for="resTime">Preferred Time *</label>
                                     <select class="form-select-luxury" id="resTime" required>
                                         <option value="">Select Time Slot</option>
                                         <optgroup label="Lunch Dining">
@@ -168,7 +168,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="form-label-luxury">Number of Guests *</label>
+                                    <label class="form-label-luxury" for="resGuests">Number of Guests *</label>
                                     <input type="number" class="form-control-luxury" id="resGuests" min="1" max="50" value="2" required>
                                 </div>
                             </div>
@@ -176,15 +176,15 @@
                             <!-- Personal Details -->
                             <div class="row g-3 mb-3">
                                 <div class="col-md-4">
-                                    <label class="form-label-luxury">Full Name *</label>
+                                    <label class="form-label-luxury" for="resName">Full Name *</label>
                                     <input type="text" class="form-control-luxury" id="resName" placeholder="Your name" required>
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="form-label-luxury">Email Address *</label>
+                                    <label class="form-label-luxury" for="resEmail">Email Address *</label>
                                     <input type="email" class="form-control-luxury" id="resEmail" placeholder="name@email.com" required>
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="form-label-luxury">Phone Number *</label>
+                                    <label class="form-label-luxury" for="resPhone">Phone Number *</label>
                                     <input type="tel" class="form-control-luxury" id="resPhone" placeholder="091594 224449" required>
                                 </div>
                             </div>
@@ -192,7 +192,7 @@
                             <!-- Occasion & Requests -->
                             <div class="row g-3 mb-4">
                                 <div class="col-md-6">
-                                    <label class="form-label-luxury">Dining Occasion</label>
+                                    <label class="form-label-luxury" for="resOccasion">Dining Occasion</label>
                                     <select class="form-select-luxury" id="resOccasion">
                                         <option value="Casual Dining">Casual Dining</option>
                                         <option value="Birthday Celebration">Birthday Celebration</option>
@@ -203,7 +203,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label-luxury">Special Chef or Seating Requests</label>
+                                    <label class="form-label-luxury" for="resRequests">Special Chef or Seating Requests</label>
                                     <input type="text" class="form-control-luxury" id="resRequests" placeholder="Cake decoration, high chair for infant, etc.">
                                 </div>
                             </div>
@@ -218,22 +218,20 @@
                 <!-- Right: Information & FAQ -->
                 <div class="col-lg-4">
                     <div class="luxury-card p-4 mb-4">
-                        <h4 class="font-luxury text-gold mb-3"><i class="fas fa-clock me-2"></i>Hours & Timings</h4>
+                        <h4 class="font-luxury text-gold mb-3"><i class="fas fa-info-circle me-2"></i>Booking Information</h4>
                         <ul class="list-unstyled text-muted small mb-0">
-                            <li class="mb-2"><strong class="text-white">Daily Operations:</strong> 11:00 AM – 11:00 PM</li>
-                            <li class="mb-2"><strong class="text-white">Lunch Service:</strong> 11:30 AM – 04:00 PM</li>
-                            <li class="mb-2"><strong class="text-white">Dinner Service:</strong> 06:30 PM – 11:00 PM</li>
-                            <li><strong class="text-white">Grace Period:</strong> Tables are held for 15 minutes past reserved time.</li>
+                            <li class="mb-2"><i class="fas fa-check text-gold me-2"></i>Select a preferred seating area and time.</li>
+                            <li class="mb-2"><i class="fas fa-check text-gold me-2"></i>Add any occasion or special request to your booking.</li>
+                            <li><i class="fas fa-check text-gold me-2"></i>Call us for availability questions.</li>
                         </ul>
                     </div>
 
                     <div class="luxury-card p-4 mb-4">
-                        <h4 class="font-luxury text-gold mb-3"><i class="fas fa-info-circle me-2"></i>Reservation Perks</h4>
+                        <h4 class="font-luxury text-gold mb-3"><i class="fas fa-chair me-2"></i>Reservation Details</h4>
                         <ul class="list-unstyled text-muted small mb-0">
-                            <li class="mb-2"><i class="fas fa-check text-gold me-2"></i>Zero booking reservation fee</li>
-                            <li class="mb-2"><i class="fas fa-check text-gold me-2"></i>Priority chef service on signature biryanis</li>
-                            <li class="mb-2"><i class="fas fa-check text-gold me-2"></i>Complimentary table decoration on birthdays</li>
-                            <li><i class="fas fa-check text-gold me-2"></i>Free valet parking available</li>
+                            <li class="mb-2"><i class="fas fa-check text-gold me-2"></i>Enter your contact details to submit the request.</li>
+                            <li class="mb-2"><i class="fas fa-check text-gold me-2"></i>Choose the number of guests and occasion.</li>
+                            <li><i class="fas fa-check text-gold me-2"></i>A booking reference is generated after a successful reservation.</li>
                         </ul>
                     </div>
 
@@ -265,8 +263,8 @@
                 </div>
                 <div class="col-lg-4 col-md-6 text-md-center">
                     <h5>Reservations Helpline</h5>
-                    <p class="fs-5 text-gold fw-bold mb-0">091594 224449</p>
-                    <small class="text-muted">Available 10:00 AM to 10:30 PM Daily</small>
+                    <p class="fs-5 text-gold fw-bold mb-0"><a href="tel:+9191594224449" class="text-gold">091594 224449</a></p>
+                    <small class="text-muted">Call for reservation assistance</small>
                 </div>
                 <div class="col-lg-4 col-md-6 text-md-end">
                     <p class="small text-muted mb-0">&copy; 2026 Gold Restaurant & Luxury Fine Dining.</p>

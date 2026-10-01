@@ -71,13 +71,22 @@ const orderSchema = new mongoose.Schema(
             enum: ["Cash on Delivery", "UPI", "Debit/Credit Card", "Bank Transfer"],
             default: "Cash on Delivery"
         },
+        paymentStatus: {
+            type: String,
+            enum: ["Pending", "Paid", "Not Required"],
+            default: "Not Required"
+        },
+        razorpayOrderId: { type: String, unique: true, sparse: true },
+        razorpayPaymentId: { type: String, unique: true, sparse: true },
+        paymentAttemptId: { type: String, unique: true, sparse: true },
+        paymentTimestamp: { type: Date },
         specialRequests: {
             type: String,
             default: ""
         },
         status: {
             type: String,
-            enum: ["Confirmed", "Preparing", "Out for Delivery", "Delivered", "Cancelled"],
+            enum: ["Payment Pending", "Confirmed", "Preparing", "Out for Delivery", "Delivered", "Cancelled"],
             default: "Confirmed"
         }
     },

@@ -63,19 +63,9 @@ async function initAuthSync() {
             clearUserSession();
         }
     } catch (err) {
-        // Backend offline or network error: use cached user data gracefully
-        const cachedUser = localStorage.getItem('user');
-        if (cachedUser) {
-            try {
-                const user = JSON.parse(cachedUser);
-                if (loginNav) loginNav.style.display = 'none';
-                if (userMenu) userMenu.style.display = 'block';
-                if (userNameDisplay) userNameDisplay.textContent = user.name.split(' ')[0];
-                autoFillUserDetails(user);
-            } catch {
-                clearUserSession();
-            }
-        }
+        // Do not treat an unverified cached profile as an active session. This
+        // prevents an expired/revoked token from continuing to look logged in.
+        clearUserSession();
     }
 }
 
@@ -119,7 +109,21 @@ function clearUserSession() {
 // ==========================================
 // 3. PERSISTENT SHOPPING CART SYSTEM
 // ==========================================
-let cart = JSON.parse(localStorage.getItem('goldCartItems')) || [];
+let cart = (() => {
+    try {
+        const storedCart = JSON.parse(localStorage.getItem('goldCartItems'));
+        return Array.isArray(storedCart) ? storedCart : [];
+    } catch {
+        localStorage.removeItem('goldCartItems');
+        return [];
+    }
+})();
+
+function getOrderTotals(orderType = 'Delivery') {
+    const subtotal = cart.reduce((sum, item) => sum + (Number(item.price) * Number(item.quantity)), 0);
+    const deliveryFee = orderType === 'Delivery' && subtotal > 0 && subtotal < 600 ? 50 : 0;
+    return { subtotal, deliveryFee, total: subtotal + deliveryFee };
+}
 
 function saveCart() {
     localStorage.setItem('goldCartItems', JSON.stringify(cart));
@@ -179,9 +183,7 @@ function clearCart() {
 
 function renderCart() {
     const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const deliveryFee = totalCount > 0 ? (subtotal >= 600 ? 0 : 50) : 0;
-    const grandTotal = subtotal + deliveryFee;
+    const { subtotal, deliveryFee, total: grandTotal } = getOrderTotals();
 
     // Update all badges across page
     document.querySelectorAll('.cart-count-badge, #cartBadge').forEach(badge => {
@@ -313,9 +315,7 @@ function openCheckoutModal() {
     // Refresh totals inside modal summary
     const modalTotal = document.getElementById('modalOrderTotal');
     const modalItemsList = document.getElementById('modalOrderItemsList');
-    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const deliveryFee = subtotal >= 600 ? 0 : 50;
-    const total = subtotal + deliveryFee;
+    const { total } = getOrderTotals(document.getElementById('checkoutOrderType')?.value);
 
     if (modalTotal) modalTotal.textContent = `₹${total}`;
     if (modalItemsList) {
@@ -403,7 +403,7 @@ function injectCheckoutModal() {
                             </div>
                             <div class="p-3 rounded mt-3" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-gold-subtle);">
                                 <div class="d-flex justify-content-between align-items-center mb-1">
-                                    <span class="text-muted small">Items in Cart:</span>
+                                    <span class="text-muted small">Order Total:</span>
                                     <span class="fw-bold text-gold" id="modalOrderTotal">₹0</span>
                                 </div>
                                 <div id="modalOrderItemsList"></div>
@@ -422,6 +422,7 @@ function injectCheckoutModal() {
     `;
     document.body.insertAdjacentHTML('beforeend', markup);
     setupCheckoutSubmit();
+    toggleDeliveryField('Delivery');
 }
 
 function toggleDeliveryField(val) {
@@ -436,6 +437,8 @@ function toggleDeliveryField(val) {
             if (addrInput) addrInput.required = false;
         }
     }
+    const modalTotal = document.getElementById('modalOrderTotal');
+    if (modalTotal) modalTotal.textContent = `₹${getOrderTotals(val).total}`;
 }
 
 function setupCheckoutSubmit() {
@@ -444,6 +447,8 @@ function setupCheckoutSubmit() {
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
+
+        if (form.dataset.submitting === 'true') return;
 
         if (cart.length === 0) {
             showToast('Your cart is empty!', 'error');
@@ -464,11 +469,17 @@ function setupCheckoutSubmit() {
             return;
         }
 
+        if (paymentMethod === 'Bank Transfer') {
+            showToast('Bank transfer is not available for online checkout. Please choose Cash on Delivery.', 'error');
+            return;
+        }
+
         const submitBtn = document.getElementById('confirmOrderBtn');
         if (submitBtn) {
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Placing Order...';
         }
+        form.dataset.submitting = 'true';
 
         const token = localStorage.getItem('token') || sessionStorage.getItem('token');
         const orderPayload = {
@@ -483,6 +494,19 @@ function setupCheckoutSubmit() {
         };
 
         try {
+            if (paymentMethod === 'UPI') {
+                const paymentResult = await startUpiPayment(orderPayload, form);
+                if (paymentResult?.success) {
+                    const modalEl = document.getElementById('checkoutModal');
+                    const modal = bootstrap.Modal.getInstance(modalEl);
+                    if (modal) modal.hide();
+                    clearCart();
+                    delete form.dataset.paymentAttemptId;
+                    showOrderSuccessModal(paymentResult.order.orderNumber, name, orderType);
+                }
+                return;
+            }
+
             const response = await fetch(`${API_BASE}/orders`, {
                 method: 'POST',
                 headers: {
@@ -492,7 +516,7 @@ function setupCheckoutSubmit() {
                 body: JSON.stringify(orderPayload)
             });
 
-            const data = await response.json();
+            const data = await response.json().catch(() => ({}));
 
             if (response.ok && data.success) {
                 // Close modal
@@ -509,24 +533,108 @@ function setupCheckoutSubmit() {
                 showToast(data.message || 'Could not place order. Please try again.', 'error');
             }
         } catch (err) {
-            // Fallback for offline mode
-            const offlineOrderNum = `GLD-ORD-${Math.floor(100000 + Math.random() * 900000)}`;
-            const savedOrders = JSON.parse(localStorage.getItem('goldOrders')) || [];
-            savedOrders.push({ ...orderPayload, orderNumber: offlineOrderNum, createdAt: new Date().toISOString() });
-            localStorage.setItem('goldOrders', JSON.stringify(savedOrders));
-
-            const modalEl = document.getElementById('checkoutModal');
-            const modal = bootstrap.Modal.getInstance(modalEl);
-            if (modal) modal.hide();
-
-            clearCart();
-            showOrderSuccessModal(offlineOrderNum, name, orderType);
+            showToast('Could not reach the order service. Your order was not placed; please try again.', 'error');
         } finally {
+            delete form.dataset.submitting;
             if (submitBtn) {
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = '<i class="fas fa-paper-plane me-1"></i> Place Order';
             }
         }
+    });
+}
+
+function loadRazorpayCheckout() {
+    if (window.Razorpay) return Promise.resolve();
+    const existingScript = document.getElementById('razorpayCheckoutScript');
+    if (existingScript) existingScript.remove();
+
+    return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.id = 'razorpayCheckoutScript';
+        script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+        script.onload = resolve;
+        script.onerror = () => reject(new Error('Razorpay could not be loaded.'));
+        document.head.appendChild(script);
+    });
+}
+
+async function startUpiPayment(orderPayload, form) {
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+    const paymentAttemptId = form.dataset.paymentAttemptId || (window.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`);
+    form.dataset.paymentAttemptId = paymentAttemptId;
+
+    const response = await fetch(`${API_BASE}/payments/create-order`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) },
+        body: JSON.stringify({ ...orderPayload, paymentAttemptId })
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok || !data.success || !data.razorpayOrder?.id || !data.keyId) {
+        showToast(data.message || 'Could not start the UPI payment.', 'error');
+        return { success: false };
+    }
+
+    try {
+        await loadRazorpayCheckout();
+    } catch {
+        showToast('Razorpay Checkout could not be loaded. Your order remains unpaid.', 'error');
+        return { success: false };
+    }
+
+    return new Promise(resolve => {
+        let settled = false;
+        const finish = result => {
+            if (!settled) {
+                settled = true;
+                resolve(result);
+            }
+        };
+        const razorpay = new Razorpay({
+            key: data.keyId,
+            amount: data.razorpayOrder.amount,
+            currency: data.razorpayOrder.currency || 'INR',
+            name: 'Gold Restaurant',
+            description: 'UPI food order payment',
+            order_id: data.razorpayOrder.id,
+            prefill: { name: orderPayload.customerName, email: orderPayload.customerEmail, contact: orderPayload.customerPhone },
+            method: { upi: true, card: false, netbanking: false, wallet: false },
+            config: {
+                display: {
+                    blocks: { upi: { name: 'Pay via UPI', instruments: [{ method: 'upi' }] } },
+                    sequence: ['block.upi'],
+                    preferences: { show_default_blocks: false }
+                }
+            },
+            theme: { color: '#d4af37' },
+            modal: {
+                ondismiss: () => {
+                    if (settled) return;
+                    showToast('UPI payment was cancelled. Your order has not been confirmed.', 'info');
+                    finish({ success: false });
+                }
+            },
+            handler: async paymentResponse => {
+                try {
+                    const verifyResponse = await fetch(`${API_BASE}/payments/verify`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) },
+                        body: JSON.stringify(paymentResponse)
+                    });
+                    const verification = await verifyResponse.json().catch(() => ({}));
+                    if (verifyResponse.ok && verification.success && verification.order) return finish({ success: true, order: verification.order });
+                    showToast(verification.message || 'Payment could not be verified. Your order is not confirmed.', 'error');
+                } catch {
+                    showToast('Could not verify the payment. Please contact the restaurant before retrying.', 'error');
+                }
+                finish({ success: false });
+            }
+        });
+        razorpay.on('payment.failed', response => {
+            showToast(response.error?.description || 'UPI payment failed. Your order has not been confirmed.', 'error');
+            finish({ success: false });
+        });
+        razorpay.open();
     });
 }
 
@@ -621,10 +729,8 @@ function initFormHandlers() {
                 } else {
                     showToast(data.message || 'Could not reserve table. Please call 091594 224449.', 'error');
                 }
-            } catch (err) {
-                const offlineRef = `GLD-RES-${Math.floor(100000 + Math.random() * 900000)}`;
-                showReservationSuccess(offlineRef, name, date, time, guests, seatingArea);
-                reservationForm.reset();
+        } catch (err) {
+            showToast('Could not reach the reservation service. Your table was not reserved; please try again.', 'error');
             } finally {
                 if (submitBtn) {
                     submitBtn.disabled = false;
@@ -667,8 +773,7 @@ function initFormHandlers() {
                     showToast(data.message || 'Failed to send message.', 'error');
                 }
             } catch {
-                showToast('Thank you! Your message has been recorded. We will contact you soon.', 'success');
-                contactForm.reset();
+                showToast('Could not send your message. Please try again or call us directly.', 'error');
             } finally {
                 if (submitBtn) {
                     submitBtn.disabled = false;

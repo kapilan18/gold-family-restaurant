@@ -598,14 +598,6 @@ async function startUpiPayment(orderPayload, form) {
             description: 'UPI food order payment',
             order_id: data.razorpayOrder.id,
             prefill: { name: orderPayload.customerName, email: orderPayload.customerEmail, contact: orderPayload.customerPhone },
-            method: { upi: true, card: false, netbanking: false, wallet: false },
-            config: {
-                display: {
-                    blocks: { upi: { name: 'Pay via UPI', instruments: [{ method: 'upi' }] } },
-                    sequence: ['block.upi'],
-                    preferences: { show_default_blocks: false }
-                }
-            },
             theme: { color: '#d4af37' },
             modal: {
                 ondismiss: () => {

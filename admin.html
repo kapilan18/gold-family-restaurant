@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Management | Gold Family Restaurant</title>
+    <meta name="description" content="Gold Family Restaurant Management & Owner Administration Portal.">
+    <meta name="robots" content="noindex, nofollow">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- Custom Luxury CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root {
+            --bg-obsidian: #0F0F11;
+            --bg-surface: #17171C;
+            --bg-surface-elevated: #202026;
+            --gold-primary: #D4AF37;
+            --gold-light: #F3E5AB;
+            --border-gold: rgba(212, 175, 55, 0.35);
+            --border-subtle: #2C2C34;
+            --text-primary: #FFFFFF;
+            --text-secondary: #9E9EA7;
+            --danger: #E53935;
+            --success: #2E7D32;
+        }
+
+        body {
+            background-color: var(--bg-obsidian);
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+        }
+
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 15px;
+            background: radial-gradient(circle at 50% 30%, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+        }
+
+        .auth-card {
+            width: 100%;
+            max-width: 440px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-gold);
+            border-radius: 16px;
+            padding: 36px 32px;
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6);
+        }
+
+        .brand-badge {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--gold-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            margin: 0 auto 16px;
+            border: 1px solid var(--border-gold);
+        }
+
+        .input-group-luxury {
+            position: relative;
+        }
+
+        .input-group-luxury i.input-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gold-primary);
+            font-size: 1rem;
+        }
+
+        .input-group-luxury input {
+            padding-left: 42px;
+            padding-right: 42px;
+            background: var(--bg-surface-elevated);
+            border: 1px solid var(--border-subtle);
+            color: #fff;
+            border-radius: 10px;
+            height: 48px;
+        }
+
+        .input-group-luxury input:focus {
+            background: var(--bg-surface-elevated);
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.2);
+            color: #fff;
+        }
+
+        .password-toggle-btn {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+
+        .btn-gold {
+            background: var(--gold-primary);
+            color: #0F0F11;
+            font-weight: 700;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 24px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-gold:hover {
+            background: var(--gold-light);
+            color: #0F0F11;
+        }
+
+        /* Dashboard Styles */
+        .admin-header {
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 16px 24px;
+        }
+
+        .stat-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 14px;
+            padding: 20px;
+            transition: border-color 0.2s;
+        }
+
+        .stat-card:hover {
+            border-color: var(--border-gold);
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--gold-primary);
+        }
+
+        .data-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .data-table th {
+            background: var(--bg-surface-elevated);
+            color: var(--gold-primary);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            border-color: var(--border-subtle);
+            padding: 14px 16px;
+        }
+
+        .data-table td {
+            color: var(--text-primary);
+            border-color: var(--border-subtle);
+            padding: 14px 16px;
+            vertical-align: middle;
+        }
+
+        .badge-status {
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .badge-pending { background: rgba(255, 152, 0, 0.2); color: #FFA726; }
+        .badge-confirmed { background: rgba(33, 150, 243, 0.2); color: #42A5F5; }
+        .badge-delivered { background: rgba(76, 175, 80, 0.2); color: #66BB6A; }
+        .badge-cancelled { background: rgba(229, 57, 53, 0.2); color: #EF5350; }
+    </style>
+</head>
+<body>
+
+    <!-- ================= 1. ADMIN LOGIN VIEW ================= -->
+    <div id="adminLoginSection" class="auth-container">
+        <div class="auth-card">
+            <div class="text-center mb-4">
+                <div class="brand-badge">
+                    <i class="fas fa-shield-halved"></i>
+                </div>
+                <h3 class="mb-1" style="font-weight: 800;">Owner Management Portal</h3>
+                <p class="text-secondary small">Gold Family Restaurant • Pudukkottai</p>
+            </div>
+
+            <!-- Error Banner -->
+            <div id="loginErrorAlert" class="alert alert-danger py-2 small mb-3" style="display: none; background: rgba(229,57,53,0.15); border: 1px solid #E53935; color: #FFCDD2;" role="alert"></div>
+
+            <form id="adminLoginForm">
+                <div class="mb-3">
+                    <label class="form-label small text-secondary" for="adminEmail">Admin Email</label>
+                    <div class="input-group-luxury">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" class="form-control" id="adminEmail" required placeholder="admin@goldfamilyrestaurant.com">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label small text-secondary" for="adminPassword">Password</label>
+                    <div class="input-group-luxury">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" class="form-control" id="adminPassword" required placeholder="••••••••••••">
+                        <button type="button" class="password-toggle-btn" id="togglePasswordBtn">
+                            <i class="fas fa-eye" id="eyeIcon"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-gold w-100 py-3 mt-2" id="loginSubmitBtn">
+                    <i class="fas fa-key me-2"></i> Authenticate & Open Portal
+                </button>
+            </form>
+
+            <div class="text-center mt-4 pt-3 border-top" style="border-color: var(--border-subtle) !important;">
+                <a href="/" class="small text-secondary text-decoration-none">
+                    <i class="fas fa-arrow-left me-1"></i> Return to Restaurant Website
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= 2. ADMIN DASHBOARD VIEW ================= -->
+    <div id="adminDashboardSection" style="display: none;">
+        <!-- Header -->
+        <header class="admin-header d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-3">
+                <div class="brand-badge m-0" style="width: 42px; height: 42px; font-size: 1.2rem;">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <div>
+                    <h5 class="mb-0 fw-bold" style="color: var(--gold-primary);">GOLD FAMILY RESTAURANT</h5>
+                    <small class="text-secondary">Owner & Administration System</small>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-3">
+                <span class="badge bg-dark border border-secondary text-light px-3 py-2 small" id="adminNameBadge">
+                    <i class="fas fa-user-shield text-warning me-2"></i> Admin
+                </span>
+                <a href="/" class="btn btn-outline-secondary btn-sm" target="_blank">
+                    <i class="fas fa-external-link-alt me-1"></i> Customer View
+                </a>
+                <button class="btn btn-outline-danger btn-sm" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt me-1"></i> Sign Out
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="container-fluid py-4 px-lg-5">
+            <!-- Stats Row -->
+            <div class="row g-3 mb-4">
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="d-flex justify-content-between text-secondary small mb-1">
+                            <span>Today's Orders</span>
+                            <i class="fas fa-receipt text-warning"></i>
+                        </div>
+                        <div class="stat-value" id="statOrders">14</div>
+                        <small class="text-secondary">4 orders cooking now</small>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="d-flex justify-content-between text-secondary small mb-1">
+                            <span>Today's Revenue</span>
+                            <i class="fas fa-indian-rupee-sign text-warning"></i>
+                        </div>
+                        <div class="stat-value" id="statRevenue">₹6,850</div>
+                        <small class="text-secondary">Paid & completed</small>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="d-flex justify-content-between text-secondary small mb-1">
+                            <span>Table Bookings</span>
+                            <i class="fas fa-chair text-warning"></i>
+                        </div>
+                        <div class="stat-value" id="statReservations">8</div>
+                        <small class="text-secondary">Royal Lounge & Rooftop</small>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="d-flex justify-content-between text-secondary small mb-1">
+                            <span>Menu Dishes</span>
+                            <i class="fas fa-utensils text-warning"></i>
+                        </div>
+                        <div class="stat-value" id="statDishes">18</div>
+                        <small class="text-secondary">All items in stock</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Management Tabs -->
+            <ul class="nav nav-pills mb-4" id="adminTabs" role="tablist">
+                <li class="nav-item">
+                    <button class="nav-link active btn-sm" id="orders-tab" data-bs-toggle="pill" data-bs-target="#ordersPane">
+                        <i class="fas fa-concierge-bell me-1"></i> Live Customer Orders
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link btn-sm" id="menu-tab" data-bs-toggle="pill" data-bs-target="#menuPane">
+                        <i class="fas fa-bowl-food me-1"></i> Menu & Stock Management
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link btn-sm" id="reservations-tab" data-bs-toggle="pill" data-bs-target="#reservationsPane">
+                        <i class="fas fa-calendar-check me-1"></i> Table Reservations
+                    </button>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <!-- Orders Pane -->
+                <div class="tab-pane fade show active" id="ordersPane">
+                    <div class="data-card p-3">
+                        <h6 class="fw-bold mb-3" style="color: var(--gold-primary);">Recent Dining & Delivery Orders</h6>
+                        <div class="table-responsive">
+                            <table class="table data-table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Customer</th>
+                                        <th>Items Summary</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ordersTableBody">
+                                    <tr>
+                                        <td><strong>#GLD-8821</strong></td>
+                                        <td>Karthik (+91 94888 12345)</td>
+                                        <td>2x Royal Mutton Biryani, 1x Tandoori Murgh</td>
+                                        <td>₹1,120</td>
+                                        <td><span class="badge-status badge-confirmed">Preparing</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-warning" onclick="alert('Order #GLD-8821 marked Out for Delivery')">Dispatch</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>#GLD-8820</strong></td>
+                                        <td>Suresh Kumar (+91 98424 55122)</td>
+                                        <td>1x Gold Chicken Dum Biryani, 1x Sizzling Brownie</td>
+                                        <td>₹470</td>
+                                        <td><span class="badge-status badge-delivered">Delivered</span></td>
+                                        <td>
+                                            <span class="text-success small"><i class="fas fa-check-double"></i> Completed</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Menu Pane -->
+                <div class="tab-pane fade" id="menuPane">
+                    <div class="data-card p-3">
+                        <h6 class="fw-bold mb-3" style="color: var(--gold-primary);">Dishes & Live Stock Availability</h6>
+                        <div class="table-responsive">
+                            <table class="table data-table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Dish Name</th>
+                                        <th>Category</th>
+                                        <th>Price</th>
+                                        <th>Stock Status</th>
+                                        <th>Toggle Stock</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Royal Mutton Biryani</strong></td>
+                                        <td>Biryani</td>
+                                        <td>₹380</td>
+                                        <td><span class="badge bg-success">In Stock</span></td>
+                                        <td><button class="btn btn-sm btn-outline-secondary" onclick="this.classList.toggle('btn-danger'); this.innerText = this.innerText === 'Set Out of Stock' ? 'Set In Stock' : 'Set Out of Stock';">Set Out of Stock</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Egyptian Charcoal BBQ</strong></td>
+                                        <td>BBQ & Grills</td>
+                                        <td>₹340</td>
+                                        <td><span class="badge bg-success">In Stock</span></td>
+                                        <td><button class="btn btn-sm btn-outline-secondary" onclick="this.classList.toggle('btn-danger'); this.innerText = this.innerText === 'Set Out of Stock' ? 'Set In Stock' : 'Set Out of Stock';">Set Out of Stock</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Tandoori Murgh Grill</strong></td>
+                                        <td>Tandoori</td>
+                                        <td>₹420</td>
+                                        <td><span class="badge bg-success">In Stock</span></td>
+                                        <td><button class="btn btn-sm btn-outline-secondary" onclick="this.classList.toggle('btn-danger'); this.innerText = this.innerText === 'Set Out of Stock' ? 'Set In Stock' : 'Set Out of Stock';">Set Out of Stock</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reservations Pane -->
+                <div class="tab-pane fade" id="reservationsPane">
+                    <div class="data-card p-3">
+                        <h6 class="fw-bold mb-3" style="color: var(--gold-primary);">Upcoming Table Bookings</h6>
+                        <div class="table-responsive">
+                            <table class="table data-table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Booking ID</th>
+                                        <th>Guest Name</th>
+                                        <th>Date & Slot</th>
+                                        <th>Party Size</th>
+                                        <th>Area Preference</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>#RSV-4412</strong></td>
+                                        <td>Dr. Muthu (+91 94431 88200)</td>
+                                        <td>Today, 7:30 PM</td>
+                                        <td>4 Guests</td>
+                                        <td>Royal Gold Lounge (AC)</td>
+                                        <td><span class="badge-status badge-confirmed">Confirmed</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>#RSV-4411</strong></td>
+                                        <td>Anand Family (+91 98402 11340)</td>
+                                        <td>Today, 8:30 PM</td>
+                                        <td>6 Guests</td>
+                                        <td>Rooftop Garden Terrace</td>
+                                        <td><span class="badge-status badge-confirmed">Confirmed</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Bootstrap 5 Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const API_BASE = 'https://gold-family-restaurant.onrender.com/api';
+        const SESSION_KEY = 'gold_admin_session';
+
+        // Elements
+        const loginSection = document.getElementById('adminLoginSection');
+        const dashboardSection = document.getElementById('adminDashboardSection');
+        const loginForm = document.getElementById('adminLoginForm');
+        const loginErrorAlert = document.getElementById('loginErrorAlert');
+        const loginSubmitBtn = document.getElementById('loginSubmitBtn');
+        const adminEmailInput = document.getElementById('adminEmail');
+        const adminPasswordInput = document.getElementById('adminPassword');
+        const togglePasswordBtn = document.getElementById('togglePasswordBtn');
+        const eyeIcon = document.getElementById('eyeIcon');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const adminNameBadge = document.getElementById('adminNameBadge');
+
+        // Toggle password view
+        togglePasswordBtn.addEventListener('click', () => {
+            const isPassword = adminPasswordInput.type === 'password';
+            adminPasswordInput.type = isPassword ? 'text' : 'password';
+            eyeIcon.className = isPassword ? 'fas fa-eye-slash' : 'fas fa-eye';
+        });
+
+        // Check active session on load
+        function checkSession() {
+            try {
+                const sessionStr = localStorage.getItem(SESSION_KEY);
+                if (!sessionStr) {
+                    showLogin();
+                    return;
+                }
+                const session = JSON.parse(sessionStr);
+                const isExpired = Date.now() - session.timestamp > 24 * 60 * 60 * 1000;
+                if (isExpired || !session.token) {
+                    localStorage.removeItem(SESSION_KEY);
+                    showLogin();
+                    return;
+                }
+
+                if (session.role === 'ADMIN' || session.role === 'OWNER') {
+                    showDashboard(session);
+                } else {
+                    localStorage.removeItem(SESSION_KEY);
+                    showLogin('403 Forbidden: Customer accounts cannot access the Owner Portal.');
+                }
+            } catch (e) {
+                localStorage.removeItem(SESSION_KEY);
+                showLogin();
+            }
+        }
+
+        function showLogin(errorMsg = null) {
+            loginSection.style.display = 'flex';
+            dashboardSection.style.display = 'none';
+            if (errorMsg) {
+                loginErrorAlert.innerText = errorMsg;
+                loginErrorAlert.style.display = 'block';
+            } else {
+                loginErrorAlert.style.display = 'none';
+            }
+        }
+
+        function showDashboard(session) {
+            loginSection.style.display = 'none';
+            dashboardSection.style.display = 'block';
+            adminNameBadge.innerHTML = `<i class="fas fa-user-shield text-warning me-2"></i> ${session.name || 'Admin'} (${session.role})`;
+        }
+
+        // Login Handler
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            loginErrorAlert.style.display = 'none';
+            loginSubmitBtn.disabled = true;
+            loginSubmitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Verifying...';
+
+            const email = adminEmailInput.value.trim();
+            const password = adminPasswordInput.value;
+
+            try {
+                const res = await fetch(`${API_BASE}/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await res.json();
+
+                if (!res.ok) {
+                    throw new Error(data.message || `Authentication failed (HTTP ${res.status})`);
+                }
+
+                const role = (data.user?.role || 'customer').toUpperCase();
+
+                if (role !== 'ADMIN' && role !== 'OWNER') {
+                    throw new Error('403 Forbidden: Access denied. This account does not possess restaurant administrator or owner privileges.');
+                }
+
+                const session = {
+                    token: data.token,
+                    name: data.user.name || 'Restaurant Manager',
+                    email: data.user.email,
+                    role: role,
+                    timestamp: Date.now()
+                };
+
+                localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+                showDashboard(session);
+            } catch (err) {
+                loginErrorAlert.innerText = err.message || 'Unable to connect to server. Please check internet connection.';
+                loginErrorAlert.style.display = 'block';
+            } finally {
+                loginSubmitBtn.disabled = false;
+                loginSubmitBtn.innerHTML = '<i class="fas fa-key me-2"></i> Authenticate & Open Portal';
+            }
+        });
+
+        // Logout Handler
+        logoutBtn.addEventListener('click', () => {
+            localStorage.removeItem(SESSION_KEY);
+            showLogin();
+        });
+
+        // Initialize
+        checkSession();
+    </script>
+</body>
+</html>

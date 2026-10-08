@@ -3,966 +3,1982 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Restaurant Management | Gold Family Restaurant</title>
-    <meta name="description" content="Gold Family Restaurant Management & Owner Administration Portal.">
-    <meta name="robots" content="noindex, nofollow">
+
+    <meta
+        name="description"
+        content="Gold Family Restaurant Management & Owner Administration Portal."
+    >
+
+    <meta
+        name="robots"
+        content="noindex, nofollow"
+    >
+
     <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
     <!-- Font Awesome 6 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <!-- Custom Luxury CSS -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <!-- Customer Website CSS -->
     <link rel="stylesheet" href="styles.css">
-    <style>
-        :root {
-            --bg-obsidian: #0F0F11;
-            --bg-surface: #17171C;
-            --bg-surface-elevated: #202026;
-            --gold-primary: #D4AF37;
-            --gold-light: #F3E5AB;
-            --border-gold: rgba(212, 175, 55, 0.35);
-            --border-subtle: #2C2C34;
-            --text-primary: #FFFFFF;
-            --text-secondary: #9E9EA7;
-            --danger: #E53935;
-            --success: #2E7D32;
-        }
 
-        body {
-            background-color: var(--bg-obsidian);
-            color: var(--text-primary);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            min-height: 100vh;
-        }
-
-        .auth-container {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 15px;
-            background: radial-gradient(circle at 50% 30%, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
-        }
-
-        .auth-card {
-            width: 100%;
-            max-width: 440px;
-            background: var(--bg-surface);
-            border: 1px solid var(--border-gold);
-            border-radius: 16px;
-            padding: 36px 32px;
-            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6);
-        }
-
-        .brand-badge {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: rgba(212, 175, 55, 0.15);
-            color: var(--gold-primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.6rem;
-            margin: 0 auto 16px;
-            border: 1px solid var(--border-gold);
-        }
-
-        .input-group-luxury {
-            position: relative;
-        }
-
-        .input-group-luxury i.input-icon {
-            position: absolute;
-            left: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--gold-primary);
-            font-size: 1rem;
-        }
-
-        .input-group-luxury input {
-            padding-left: 42px;
-            padding-right: 42px;
-            background: var(--bg-surface-elevated);
-            border: 1px solid var(--border-subtle);
-            color: #fff;
-            border-radius: 10px;
-            height: 48px;
-        }
-
-        .input-group-luxury input:focus {
-            background: var(--bg-surface-elevated);
-            border-color: var(--gold-primary);
-            box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.2);
-            color: #fff;
-        }
-
-        .password-toggle-btn {
-            position: absolute;
-            right: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-        }
-
-        .btn-gold {
-            background: var(--gold-primary);
-            color: #0F0F11;
-            font-weight: 700;
-            border: none;
-            border-radius: 10px;
-            padding: 12px 24px;
-            transition: all 0.2s ease;
-        }
-
-        .btn-gold:hover {
-            background: var(--gold-light);
-            color: #0F0F11;
-        }
-
-        /* Dashboard Styles */
-        .admin-header {
-            background: var(--bg-surface);
-            border-bottom: 1px solid var(--border-subtle);
-            padding: 16px 24px;
-        }
-
-        .stat-card {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            border-radius: 14px;
-            padding: 20px;
-            transition: border-color 0.2s;
-        }
-
-        .stat-card:hover {
-            border-color: var(--border-gold);
-        }
-
-        .stat-value {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--gold-primary);
-        }
-
-        .data-card {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            border-radius: 14px;
-            overflow: hidden;
-        }
-
-        .data-table th {
-            background: var(--bg-surface-elevated);
-            color: var(--gold-primary);
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            border-color: var(--border-subtle);
-            padding: 14px 16px;
-        }
-
-        .data-table td {
-            color: var(--text-primary);
-            border-color: var(--border-subtle);
-            padding: 14px 16px;
-            vertical-align: middle;
-        }
-
-        .badge-status {
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            font-weight: 700;
-        }
-
-        .badge-pending { background: rgba(255, 152, 0, 0.2); color: #FFA726; }
-        .badge-confirmed { background: rgba(33, 150, 243, 0.2); color: #42A5F5; }
-        .badge-delivered { background: rgba(76, 175, 80, 0.2); color: #66BB6A; }
-        .badge-cancelled { background: rgba(229, 57, 53, 0.2); color: #EF5350; }
-    </style>
+    <!-- Admin Dashboard CSS -->
+    <link rel="stylesheet" href="admin.css">
 </head>
+
 <body>
 
-    <!-- ================= 1. ADMIN LOGIN VIEW ================= -->
+    <!-- =====================================================
+         1. ADMIN LOGIN VIEW
+         ===================================================== -->
+
     <div id="adminLoginSection" class="auth-container">
+
         <div class="auth-card">
+
             <div class="text-center mb-4">
+
                 <div class="brand-badge">
                     <i class="fas fa-shield-halved"></i>
                 </div>
-                <h3 class="mb-1" style="font-weight: 800;">Owner Management Portal</h3>
-                <p class="text-secondary small">Gold Family Restaurant • Pudukkottai</p>
+
+                <h3 class="mb-1 fw-bold">
+                    Owner Management Portal
+                </h3>
+
+                <p class="text-secondary small mb-0">
+                    Gold Family Restaurant • Pudukkottai
+                </p>
+
             </div>
 
-            <!-- Error Banner -->
-            <div id="loginErrorAlert" class="alert alert-danger py-2 small mb-3" style="display: none; background: rgba(229,57,53,0.15); border: 1px solid #E53935; color: #FFCDD2;" role="alert"></div>
+
+            <!-- Login Error -->
+
+            <div
+                id="loginErrorAlert"
+                class="alert alert-danger py-2 small mb-3"
+                style="display: none;"
+                role="alert"
+            ></div>
+
+
+            <!-- Login Form -->
 
             <form id="adminLoginForm">
+
+                <!-- Email -->
+
                 <div class="mb-3">
-                    <label class="form-label small text-secondary" for="adminEmail">Admin Email</label>
+
+                    <label
+                        class="form-label small text-secondary"
+                        for="adminEmail"
+                    >
+                        Admin Email
+                    </label>
+
                     <div class="input-group-luxury">
+
                         <i class="fas fa-envelope input-icon"></i>
-                        <input type="email" class="form-control" id="adminEmail" required placeholder="admin@goldfamilyrestaurant.com">
+
+                        <input
+                            type="email"
+                            class="form-control"
+                            id="adminEmail"
+                            required
+                            autocomplete="email"
+                            placeholder="admin@goldfamilyrestaurant.com"
+                        >
+
                     </div>
+
                 </div>
+
+
+                <!-- Password -->
 
                 <div class="mb-3">
-                    <label class="form-label small text-secondary" for="adminPassword">Password</label>
+
+                    <label
+                        class="form-label small text-secondary"
+                        for="adminPassword"
+                    >
+                        Password
+                    </label>
+
                     <div class="input-group-luxury">
+
                         <i class="fas fa-lock input-icon"></i>
-                        <input type="password" class="form-control" id="adminPassword" required placeholder="••••••••••••">
-                        <button type="button" class="password-toggle-btn" id="togglePasswordBtn">
-                            <i class="fas fa-eye" id="eyeIcon"></i>
+
+                        <input
+                            type="password"
+                            class="form-control"
+                            id="adminPassword"
+                            required
+                            autocomplete="current-password"
+                            placeholder="••••••••••••"
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle-btn"
+                            id="togglePasswordBtn"
+                            aria-label="Show or hide password"
+                        >
+                            <i
+                                class="fas fa-eye"
+                                id="eyeIcon"
+                            ></i>
                         </button>
+
                     </div>
+
                 </div>
 
-                <button type="submit" class="btn btn-gold w-100 py-3 mt-2" id="loginSubmitBtn">
-                    <i class="fas fa-key me-2"></i> Authenticate & Open Portal
+
+                <!-- Login Button -->
+
+                <button
+                    type="submit"
+                    class="btn btn-gold w-100 py-3 mt-2"
+                    id="loginSubmitBtn"
+                >
+                    <i class="fas fa-key me-2"></i>
+                    Authenticate & Open Portal
                 </button>
+
             </form>
 
-            <div class="text-center mt-4 pt-3 border-top" style="border-color: var(--border-subtle) !important;">
-                <a href="/" class="small text-secondary text-decoration-none">
-                    <i class="fas fa-arrow-left me-1"></i> Return to Restaurant Website
+
+            <!-- Return To Website -->
+
+            <div class="text-center mt-4 pt-3 border-top admin-login-footer">
+
+                <a
+                    href="/"
+                    class="small text-secondary text-decoration-none"
+                >
+                    <i class="fas fa-arrow-left me-1"></i>
+                    Return to Restaurant Website
                 </a>
+
             </div>
+
         </div>
+
     </div>
 
-    <!-- ================= 2. ADMIN DASHBOARD VIEW ================= -->
-    <div id="adminDashboardSection" style="display: none;">
-        <!-- Header -->
-        <header class="admin-header d-flex justify-content-between align-items-center">
-            <div class="d-flex align-items-center gap-3">
-                <div class="brand-badge m-0" style="width: 42px; height: 42px; font-size: 1.2rem;">
-                    <i class="fas fa-crown"></i>
-                </div>
-                <div>
-                    <h5 class="mb-0 fw-bold" style="color: var(--gold-primary);">GOLD FAMILY RESTAURANT</h5>
-                    <small class="text-secondary">Owner & Administration System</small>
-                </div>
-            </div>
+
+    <!-- =====================================================
+         2. ADMIN DASHBOARD VIEW
+         ===================================================== -->
+
+    <div
+        id="adminDashboardSection"
+        style="display: none;"
+    >
+
+        <!-- =================================================
+             HEADER
+             ================================================= -->
+
+        <header
+            class="admin-header d-flex justify-content-between align-items-center"
+        >
+
+            <!-- Brand -->
 
             <div class="d-flex align-items-center gap-3">
-                <span class="badge bg-dark border border-secondary text-light px-3 py-2 small" id="adminNameBadge">
-                    <i class="fas fa-user-shield text-warning me-2"></i> Admin
-                </span>
-                <a href="/" class="btn btn-outline-secondary btn-sm" target="_blank">
-                    <i class="fas fa-external-link-alt me-1"></i> Customer View
-                </a>
-                <button class="btn btn-outline-danger btn-sm" id="logoutBtn">
-                    <i class="fas fa-sign-out-alt me-1"></i> Sign Out
-                </button>
+
+                <div class="brand-badge admin-brand-badge m-0">
+
+                    <i class="fas fa-crown"></i>
+
+                </div>
+
+                <div>
+
+                    <h5 class="mb-0 fw-bold admin-brand-title">
+                        GOLD FAMILY RESTAURANT
+                    </h5>
+
+                    <small class="text-secondary">
+                        Owner & Administration System
+                    </small>
+
+                </div>
+
             </div>
+
+
+            <!-- Header Actions -->
+
+            <div class="d-flex align-items-center gap-3">
+
+                <span
+                    class="badge admin-user-badge px-3 py-2 small"
+                    id="adminNameBadge"
+                >
+                    <i class="fas fa-user-shield me-2"></i>
+                    Admin
+                </span>
+
+
+                <a
+                    href="/"
+                    class="btn btn-outline-secondary btn-sm"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <i class="fas fa-external-link-alt me-1"></i>
+                    Customer View
+                </a>
+
+
+                <button
+                    class="btn btn-outline-danger btn-sm"
+                    id="logoutBtn"
+                    type="button"
+                >
+                    <i class="fas fa-sign-out-alt me-1"></i>
+                    Sign Out
+                </button>
+
+            </div>
+
         </header>
 
-        <!-- Main Content -->
+
+        <!-- =================================================
+             MAIN DASHBOARD
+             ================================================= -->
+
         <main class="container-fluid py-4 px-lg-5">
-            <!-- Stats Row -->
-            <div class="row g-3 mb-4">
-                <div class="col-md-3">
-                    <div class="stat-card">
-                        <div class="d-flex justify-content-between text-secondary small mb-1">
-                            <span>Today's Orders</span>
-                            <i class="fas fa-receipt text-warning"></i>
-                        </div>
-                        <div class="stat-value" id="statOrders">14</div>
-                        <small class="text-secondary">4 orders cooking now</small>
+
+            <!-- Dashboard Heading -->
+
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+
+                <div>
+
+                    <div class="d-flex align-items-center gap-2">
+
+                        <span class="live-indicator">
+                            LIVE
+                        </span>
+
+                        <span class="small text-secondary">
+                            Restaurant Operations
+                        </span>
+
                     </div>
+
+                    <h2 class="fw-bold mb-1 mt-2">
+                        Dashboard Overview
+                    </h2>
+
+                    <p class="text-secondary mb-0">
+                        Monitor orders, revenue, reservations and restaurant activity.
+                    </p>
+
                 </div>
-                <div class="col-md-3">
-                    <div class="stat-card">
-                        <div class="d-flex justify-content-between text-secondary small mb-1">
-                            <span>Today's Revenue</span>
-                            <i class="fas fa-indian-rupee-sign text-warning"></i>
-                        </div>
-                        <div class="stat-value" id="statRevenue">₹6,850</div>
-                        <small class="text-secondary">Paid & completed</small>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="stat-card">
-                        <div class="d-flex justify-content-between text-secondary small mb-1">
-                            <span>Table Bookings</span>
-                            <i class="fas fa-chair text-warning"></i>
-                        </div>
-                        <div class="stat-value" id="statReservations">8</div>
-                        <small class="text-secondary">Royal Lounge & Rooftop</small>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="stat-card">
-                        <div class="d-flex justify-content-between text-secondary small mb-1">
-                            <span>Menu Dishes</span>
-                            <i class="fas fa-utensils text-warning"></i>
-                        </div>
-                        <div class="stat-value" id="statDishes">18</div>
-                        <small class="text-secondary">All items in stock</small>
-                    </div>
-                </div>
+
             </div>
 
-            <!-- Management Tabs -->
-            <ul class="nav nav-pills mb-4" id="adminTabs" role="tablist">
-                <li class="nav-item">
-                    <button class="nav-link active btn-sm" id="orders-tab" data-bs-toggle="pill" data-bs-target="#ordersPane">
-                        <i class="fas fa-concierge-bell me-1"></i> Live Customer Orders
+
+            <!-- =================================================
+                 STATISTICS
+                 ================================================= -->
+
+            <div class="row g-3 mb-4">
+
+                <!-- Orders -->
+
+                <div class="col-12 col-sm-6 col-xl-3">
+
+                    <div class="stat-card h-100">
+
+                        <div class="d-flex justify-content-between align-items-start">
+
+                            <div>
+
+                                <div class="text-secondary small mb-2">
+                                    Today's Orders
+                                </div>
+
+                                <div
+                                    class="stat-value"
+                                    id="statOrders"
+                                >
+                                    0
+                                </div>
+
+                            </div>
+
+                            <div class="stat-card-icon">
+
+                                <i class="fas fa-receipt"></i>
+
+                            </div>
+
+                        </div>
+
+                        <small class="text-secondary">
+                            Customer orders received today
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Revenue -->
+
+                <div class="col-12 col-sm-6 col-xl-3">
+
+                    <div class="stat-card h-100">
+
+                        <div class="d-flex justify-content-between align-items-start">
+
+                            <div>
+
+                                <div class="text-secondary small mb-2">
+                                    Today's Revenue
+                                </div>
+
+                                <div
+                                    class="stat-value"
+                                    id="statRevenue"
+                                >
+                                    ₹0
+                                </div>
+
+                            </div>
+
+                            <div class="stat-card-icon">
+
+                                <i class="fas fa-indian-rupee-sign"></i>
+
+                            </div>
+
+                        </div>
+
+                        <small class="text-secondary">
+                            Based on today's orders
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Reservations -->
+
+                <div class="col-12 col-sm-6 col-xl-3">
+
+                    <div class="stat-card h-100">
+
+                        <div class="d-flex justify-content-between align-items-start">
+
+                            <div>
+
+                                <div class="text-secondary small mb-2">
+                                    Table Bookings
+                                </div>
+
+                                <div
+                                    class="stat-value"
+                                    id="statReservations"
+                                >
+                                    0
+                                </div>
+
+                            </div>
+
+                            <div class="stat-card-icon">
+
+                                <i class="fas fa-chair"></i>
+
+                            </div>
+
+                        </div>
+
+                        <small class="text-secondary">
+                            Restaurant reservations
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Menu -->
+
+                <div class="col-12 col-sm-6 col-xl-3">
+
+                    <div class="stat-card h-100">
+
+                        <div class="d-flex justify-content-between align-items-start">
+
+                            <div>
+
+                                <div class="text-secondary small mb-2">
+                                    Menu Dishes
+                                </div>
+
+                                <div
+                                    class="stat-value"
+                                    id="statDishes"
+                                >
+                                    0
+                                </div>
+
+                            </div>
+
+                            <div class="stat-card-icon">
+
+                                <i class="fas fa-utensils"></i>
+
+                            </div>
+
+                        </div>
+
+                        <small class="text-secondary">
+                            Available menu items
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 MANAGEMENT TABS
+                 ================================================= -->
+
+            <ul
+                class="nav nav-pills admin-tabs mb-4"
+                id="adminTabs"
+                role="tablist"
+            >
+
+                <!-- Orders -->
+
+                <li class="nav-item" role="presentation">
+
+                    <button
+                        class="nav-link active"
+                        id="orders-tab"
+                        data-bs-toggle="pill"
+                        data-bs-target="#ordersPane"
+                        type="button"
+                        role="tab"
+                        aria-controls="ordersPane"
+                        aria-selected="true"
+                    >
+                        <i class="fas fa-concierge-bell me-2"></i>
+                        Live Customer Orders
                     </button>
+
                 </li>
-                <li class="nav-item">
-                    <button class="nav-link btn-sm" id="menu-tab" data-bs-toggle="pill" data-bs-target="#menuPane">
-                        <i class="fas fa-bowl-food me-1"></i> Menu & Stock Management
+
+
+                <!-- Menu -->
+
+                <li class="nav-item" role="presentation">
+
+                    <button
+                        class="nav-link"
+                        id="menu-tab"
+                        data-bs-toggle="pill"
+                        data-bs-target="#menuPane"
+                        type="button"
+                        role="tab"
+                        aria-controls="menuPane"
+                        aria-selected="false"
+                    >
+                        <i class="fas fa-bowl-food me-2"></i>
+                        Menu & Stock Management
                     </button>
+
                 </li>
-                <li class="nav-item">
-                    <button class="nav-link btn-sm" id="reservations-tab" data-bs-toggle="pill" data-bs-target="#reservationsPane">
-                        <i class="fas fa-calendar-check me-1"></i> Table Reservations
+
+
+                <!-- Reservations -->
+
+                <li class="nav-item" role="presentation">
+
+                    <button
+                        class="nav-link"
+                        id="reservations-tab"
+                        data-bs-toggle="pill"
+                        data-bs-target="#reservationsPane"
+                        type="button"
+                        role="tab"
+                        aria-controls="reservationsPane"
+                        aria-selected="false"
+                    >
+                        <i class="fas fa-calendar-check me-2"></i>
+                        Table Reservations
                     </button>
+
                 </li>
+
             </ul>
 
+
+            <!-- =================================================
+                 TAB CONTENT
+                 ================================================= -->
+
             <div class="tab-content">
-                <!-- Orders Pane -->
-                <div class="tab-pane fade show active" id="ordersPane">
-                    <div class="data-card p-3">
-                        <h6 class="fw-bold mb-3" style="color: var(--gold-primary);">Recent Dining & Delivery Orders</h6>
+
+
+                <!-- =================================================
+                     ORDERS
+                     ================================================= -->
+
+                <div
+                    class="tab-pane fade show active"
+                    id="ordersPane"
+                    role="tabpanel"
+                    aria-labelledby="orders-tab"
+                >
+
+                    <div class="data-card">
+
+                        <!-- Orders Header -->
+
+                        <div class="data-card-header p-3 p-lg-4">
+
+                            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+
+                                <div>
+
+                                    <div class="d-flex align-items-center gap-2 mb-1">
+
+                                        <h5 class="fw-bold mb-0">
+                                            Recent Customer Orders
+                                        </h5>
+
+                                        <span class="live-indicator">
+                                            LIVE
+                                        </span>
+
+                                    </div>
+
+                                    <p class="text-secondary small mb-0">
+                                        Manage and monitor restaurant orders.
+                                    </p>
+
+                                </div>
+
+                                <button
+                                    type="button"
+                                    class="btn btn-outline-warning btn-sm"
+                                    onclick="loadAdminOrders()"
+                                >
+                                    <i class="fas fa-rotate me-1"></i>
+                                    Refresh
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Orders Table -->
+
                         <div class="table-responsive">
+
                             <table class="table data-table mb-0">
+
                                 <thead>
+
                                     <tr>
+
                                         <th>Order ID</th>
+
                                         <th>Customer</th>
+
                                         <th>Items Summary</th>
+
                                         <th>Amount</th>
+
                                         <th>Status</th>
+
                                         <th>Action</th>
+
                                     </tr>
+
                                 </thead>
-                               <tbody id="ordersTableBody">
-    <tr>
-        <td colspan="6" class="text-center text-secondary py-4">
-            <i class="fas fa-spinner fa-spin me-2"></i>
-            Customer orders loading...
-        </td>
-    </tr>
-</tbody>
+
+
+                                <tbody id="ordersTableBody">
+
+                                    <tr>
+
+                                        <td
+                                            colspan="6"
+                                            class="text-center text-secondary py-5"
+                                        >
+
+                                            <i
+                                                class="fas fa-spinner fa-spin me-2"
+                                            ></i>
+
+                                            Customer orders loading...
+
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+
                             </table>
+
                         </div>
+
                     </div>
+
                 </div>
 
-                <!-- Menu Pane -->
-                <div class="tab-pane fade" id="menuPane">
-                    <div class="data-card p-3">
-                        <h6 class="fw-bold mb-3" style="color: var(--gold-primary);">Dishes & Live Stock Availability</h6>
+
+                <!-- =================================================
+                     MENU
+                     ================================================= -->
+
+                <div
+                    class="tab-pane fade"
+                    id="menuPane"
+                    role="tabpanel"
+                    aria-labelledby="menu-tab"
+                >
+
+                    <div class="data-card">
+
+                        <div class="data-card-header p-3 p-lg-4">
+
+                            <h5 class="fw-bold mb-1">
+                                Dishes & Live Stock Availability
+                            </h5>
+
+                            <p class="text-secondary small mb-0">
+                                Manage menu availability.
+                            </p>
+
+                        </div>
+
+
                         <div class="table-responsive">
+
                             <table class="table data-table mb-0">
+
                                 <thead>
+
                                     <tr>
+
                                         <th>Dish Name</th>
+
                                         <th>Category</th>
+
                                         <th>Price</th>
+
                                         <th>Stock Status</th>
+
                                         <th>Toggle Stock</th>
+
                                     </tr>
+
                                 </thead>
+
+
                                 <tbody>
+
                                     <tr>
-                                        <td><strong>Royal Mutton Biryani</strong></td>
-                                        <td>Biryani</td>
-                                        <td>₹380</td>
-                                        <td><span class="badge bg-success">In Stock</span></td>
-                                        <td><button class="btn btn-sm btn-outline-secondary" onclick="this.classList.toggle('btn-danger'); this.innerText = this.innerText === 'Set Out of Stock' ? 'Set In Stock' : 'Set Out of Stock';">Set Out of Stock</button></td>
+
+                                        <td>
+                                            <strong>
+                                                Royal Mutton Biryani
+                                            </strong>
+                                        </td>
+
+                                        <td>
+                                            Biryani
+                                        </td>
+
+                                        <td>
+                                            ₹380
+                                        </td>
+
+                                        <td>
+                                            <span class="badge bg-success">
+                                                In Stock
+                                            </span>
+                                        </td>
+
+                                        <td>
+
+                                            <button
+                                                class="btn btn-sm btn-outline-secondary"
+                                                type="button"
+                                                onclick="
+                                                    this.classList.toggle('btn-danger');
+                                                    this.innerText =
+                                                    this.innerText === 'Set Out of Stock'
+                                                    ? 'Set In Stock'
+                                                    : 'Set Out of Stock';
+                                                "
+                                            >
+                                                Set Out of Stock
+                                            </button>
+
+                                        </td>
+
                                     </tr>
+
+
                                     <tr>
-                                        <td><strong>Egyptian Charcoal BBQ</strong></td>
-                                        <td>BBQ & Grills</td>
-                                        <td>₹340</td>
-                                        <td><span class="badge bg-success">In Stock</span></td>
-                                        <td><button class="btn btn-sm btn-outline-secondary" onclick="this.classList.toggle('btn-danger'); this.innerText = this.innerText === 'Set Out of Stock' ? 'Set In Stock' : 'Set Out of Stock';">Set Out of Stock</button></td>
+
+                                        <td>
+                                            <strong>
+                                                Egyptian Charcoal BBQ
+                                            </strong>
+                                        </td>
+
+                                        <td>
+                                            BBQ & Grills
+                                        </td>
+
+                                        <td>
+                                            ₹340
+                                        </td>
+
+                                        <td>
+                                            <span class="badge bg-success">
+                                                In Stock
+                                            </span>
+                                        </td>
+
+                                        <td>
+
+                                            <button
+                                                class="btn btn-sm btn-outline-secondary"
+                                                type="button"
+                                                onclick="
+                                                    this.classList.toggle('btn-danger');
+                                                    this.innerText =
+                                                    this.innerText === 'Set Out of Stock'
+                                                    ? 'Set In Stock'
+                                                    : 'Set Out of Stock';
+                                                "
+                                            >
+                                                Set Out of Stock
+                                            </button>
+
+                                        </td>
+
                                     </tr>
+
+
                                     <tr>
-                                        <td><strong>Tandoori Murgh Grill</strong></td>
-                                        <td>Tandoori</td>
-                                        <td>₹420</td>
-                                        <td><span class="badge bg-success">In Stock</span></td>
-                                        <td><button class="btn btn-sm btn-outline-secondary" onclick="this.classList.toggle('btn-danger'); this.innerText = this.innerText === 'Set Out of Stock' ? 'Set In Stock' : 'Set Out of Stock';">Set Out of Stock</button></td>
+
+                                        <td>
+                                            <strong>
+                                                Tandoori Murgh Grill
+                                            </strong>
+                                        </td>
+
+                                        <td>
+                                            Tandoori
+                                        </td>
+
+                                        <td>
+                                            ₹420
+                                        </td>
+
+                                        <td>
+                                            <span class="badge bg-success">
+                                                In Stock
+                                            </span>
+                                        </td>
+
+                                        <td>
+
+                                            <button
+                                                class="btn btn-sm btn-outline-secondary"
+                                                type="button"
+                                                onclick="
+                                                    this.classList.toggle('btn-danger');
+                                                    this.innerText =
+                                                    this.innerText === 'Set Out of Stock'
+                                                    ? 'Set In Stock'
+                                                    : 'Set Out of Stock';
+                                                "
+                                            >
+                                                Set Out of Stock
+                                            </button>
+
+                                        </td>
+
                                     </tr>
+
                                 </tbody>
+
                             </table>
+
                         </div>
+
                     </div>
+
                 </div>
 
-                <!-- Reservations Pane -->
-                <div class="tab-pane fade" id="reservationsPane">
-                    <div class="data-card p-3">
-                        <h6 class="fw-bold mb-3" style="color: var(--gold-primary);">Upcoming Table Bookings</h6>
-                        <div class="table-responsive">
-                            <table class="table data-table mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>Booking ID</th>
-                                        <th>Guest Name</th>
-                                        <th>Date & Slot</th>
-                                        <th>Party Size</th>
-                                        <th>Area Preference</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><strong>#RSV-4412</strong></td>
-                                        <td>Dr. Muthu (+91 94431 88200)</td>
-                                        <td>Today, 7:30 PM</td>
-                                        <td>4 Guests</td>
-                                        <td>Royal Gold Lounge (AC)</td>
-                                        <td><span class="badge-status badge-confirmed">Confirmed</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>#RSV-4411</strong></td>
-                                        <td>Anand Family (+91 98402 11340)</td>
-                                        <td>Today, 8:30 PM</td>
-                                        <td>6 Guests</td>
-                                        <td>Rooftop Garden Terrace</td>
-                                        <td><span class="badge-status badge-confirmed">Confirmed</span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+
+                <!-- =================================================
+                     RESERVATIONS
+                     ================================================= -->
+
+                <div
+                    class="tab-pane fade"
+                    id="reservationsPane"
+                    role="tabpanel"
+                    aria-labelledby="reservations-tab"
+                >
+
+                    <div class="data-card">
+
+                        <div class="data-card-header p-3 p-lg-4">
+
+                            <h5 class="fw-bold mb-1">
+                                Upcoming Table Bookings
+                            </h5>
+
+                            <p class="text-secondary small mb-0">
+                                Restaurant reservation overview.
+                            </p>
+
                         </div>
+
+
+                        <div class="table-responsive">
+
+                            <table class="table data-table mb-0">
+
+                                <thead>
+
+                                    <tr>
+
+                                        <th>Booking ID</th>
+
+                                        <th>Guest Name</th>
+
+                                        <th>Date & Slot</th>
+
+                                        <th>Party Size</th>
+
+                                        <th>Area Preference</th>
+
+                                        <th>Status</th>
+
+                                    </tr>
+
+                                </thead>
+
+
+                                <tbody>
+
+                                    <tr>
+
+                                        <td>
+                                            <strong>
+                                                #RSV-4412
+                                            </strong>
+                                        </td>
+
+                                        <td>
+                                            Dr. Muthu
+                                        </td>
+
+                                        <td>
+                                            Today, 7:30 PM
+                                        </td>
+
+                                        <td>
+                                            4 Guests
+                                        </td>
+
+                                        <td>
+                                            Royal Gold Lounge (AC)
+                                        </td>
+
+                                        <td>
+                                            <span class="badge-status badge-confirmed">
+                                                Confirmed
+                                            </span>
+                                        </td>
+
+                                    </tr>
+
+
+                                    <tr>
+
+                                        <td>
+                                            <strong>
+                                                #RSV-4411
+                                            </strong>
+                                        </td>
+
+                                        <td>
+                                            Anand Family
+                                        </td>
+
+                                        <td>
+                                            Today, 8:30 PM
+                                        </td>
+
+                                        <td>
+                                            6 Guests
+                                        </td>
+
+                                        <td>
+                                            Rooftop Garden Terrace
+                                        </td>
+
+                                        <td>
+                                            <span class="badge-status badge-confirmed">
+                                                Confirmed
+                                            </span>
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
                     </div>
+
                 </div>
+
             </div>
+
         </main>
+
     </div>
 
-    <!-- Bootstrap 5 Bundle JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- =====================================================
+         BOOTSTRAP JS
+         ===================================================== -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    ></script>
+
+
+    <!-- =====================================================
+         ADMIN JAVASCRIPT
+         ===================================================== -->
 
     <script>
-        const API_BASE = 'https://gold-family-restaurant.onrender.com/api';
-        const SESSION_KEY = 'gold_admin_session';
 
-        // Elements
-        const loginSection = document.getElementById('adminLoginSection');
-        const dashboardSection = document.getElementById('adminDashboardSection');
-        const loginForm = document.getElementById('adminLoginForm');
-        const loginErrorAlert = document.getElementById('loginErrorAlert');
-        const loginSubmitBtn = document.getElementById('loginSubmitBtn');
-        const adminEmailInput = document.getElementById('adminEmail');
-        const adminPasswordInput = document.getElementById('adminPassword');
-        const togglePasswordBtn = document.getElementById('togglePasswordBtn');
-        const eyeIcon = document.getElementById('eyeIcon');
-        const logoutBtn = document.getElementById('logoutBtn');
-        const adminNameBadge = document.getElementById('adminNameBadge');
+        const API_BASE =
+            'https://gold-family-restaurant.onrender.com/api';
 
-        // Toggle password view
+        const SESSION_KEY =
+            'gold_admin_session';
+
+
+        // =====================================================
+        // ELEMENTS
+        // =====================================================
+
+        const loginSection =
+            document.getElementById('adminLoginSection');
+
+        const dashboardSection =
+            document.getElementById('adminDashboardSection');
+
+        const loginForm =
+            document.getElementById('adminLoginForm');
+
+        const loginErrorAlert =
+            document.getElementById('loginErrorAlert');
+
+        const loginSubmitBtn =
+            document.getElementById('loginSubmitBtn');
+
+        const adminEmailInput =
+            document.getElementById('adminEmail');
+
+        const adminPasswordInput =
+            document.getElementById('adminPassword');
+
+        const togglePasswordBtn =
+            document.getElementById('togglePasswordBtn');
+
+        const eyeIcon =
+            document.getElementById('eyeIcon');
+
+        const logoutBtn =
+            document.getElementById('logoutBtn');
+
+        const adminNameBadge =
+            document.getElementById('adminNameBadge');
+
+
+        // =====================================================
+        // PASSWORD TOGGLE
+        // =====================================================
+
         togglePasswordBtn.addEventListener('click', () => {
-            const isPassword = adminPasswordInput.type === 'password';
-            adminPasswordInput.type = isPassword ? 'text' : 'password';
-            eyeIcon.className = isPassword ? 'fas fa-eye-slash' : 'fas fa-eye';
+
+            const isPassword =
+                adminPasswordInput.type === 'password';
+
+            adminPasswordInput.type =
+                isPassword
+                    ? 'text'
+                    : 'password';
+
+            eyeIcon.className =
+                isPassword
+                    ? 'fas fa-eye-slash'
+                    : 'fas fa-eye';
+
         });
 
-        // Check active session on load
+
+        // =====================================================
+        // CHECK SESSION
+        // =====================================================
+
         function checkSession() {
+
             try {
-                const sessionStr = localStorage.getItem(SESSION_KEY);
+
+                const sessionStr =
+                    localStorage.getItem(SESSION_KEY);
+
                 if (!sessionStr) {
+
                     showLogin();
-                    return;
-                }
-                const session = JSON.parse(sessionStr);
-                const isExpired = Date.now() - session.timestamp > 24 * 60 * 60 * 1000;
-                if (isExpired || !session.token) {
-                    localStorage.removeItem(SESSION_KEY);
-                    showLogin();
+
                     return;
                 }
 
-                if (session.role === 'ADMIN' || session.role === 'OWNER') {
-                    showDashboard(session);
-                } else {
-                    localStorage.removeItem(SESSION_KEY);
-                    showLogin('403 Forbidden: Customer accounts cannot access the Owner Portal.');
+
+                const session =
+                    JSON.parse(sessionStr);
+
+
+                const isExpired =
+                    Date.now() -
+                    session.timestamp >
+                    24 * 60 * 60 * 1000;
+
+
+                if (
+                    isExpired ||
+                    !session.token
+                ) {
+
+                    localStorage.removeItem(
+                        SESSION_KEY
+                    );
+
+                    showLogin();
+
+                    return;
                 }
+
+
+                if (
+                    session.role === 'ADMIN' ||
+                    session.role === 'OWNER'
+                ) {
+
+                    showDashboard(session);
+
+                } else {
+
+                    localStorage.removeItem(
+                        SESSION_KEY
+                    );
+
+                    showLogin(
+                        '403 Forbidden: Customer accounts cannot access the Owner Portal.'
+                    );
+
+                }
+
             } catch (e) {
-                localStorage.removeItem(SESSION_KEY);
+
+                localStorage.removeItem(
+                    SESSION_KEY
+                );
+
                 showLogin();
+
             }
+
         }
+
+
+        // =====================================================
+        // SHOW LOGIN
+        // =====================================================
 
         function showLogin(errorMsg = null) {
-            loginSection.style.display = 'flex';
-            dashboardSection.style.display = 'none';
+
+            loginSection.style.display =
+                'flex';
+
+            dashboardSection.style.display =
+                'none';
+
+
             if (errorMsg) {
-                loginErrorAlert.innerText = errorMsg;
-                loginErrorAlert.style.display = 'block';
+
+                loginErrorAlert.innerText =
+                    errorMsg;
+
+                loginErrorAlert.style.display =
+                    'block';
+
             } else {
-                loginErrorAlert.style.display = 'none';
+
+                loginErrorAlert.style.display =
+                    'none';
+
             }
+
         }
+
+
+        // =====================================================
+        // SHOW DASHBOARD
+        // =====================================================
 
         function showDashboard(session) {
-            loginSection.style.display = 'none';
-            dashboardSection.style.display = 'block';
-            adminNameBadge.innerHTML = `<i class="fas fa-user-shield text-warning me-2"></i> ${session.name || 'Admin'} (${session.role})`;
-            loadAdminOrders();
-        }
 
-        // =====================================
-// REAL CUSTOMER ORDERS LOAD
-// =====================================
-async function loadAdminOrders() {
-    const ordersTableBody =
-        document.getElementById("ordersTableBody");
+            loginSection.style.display =
+                'none';
 
-    try {
-        const sessionStr =
-            localStorage.getItem(SESSION_KEY);
+            dashboardSection.style.display =
+                'block';
 
-        if (!sessionStr) {
-            throw new Error("Admin session கிடைக்கவில்லை.");
-        }
 
-        const session = JSON.parse(sessionStr);
+            adminNameBadge.innerHTML = `
 
-        if (!session.token) {
-            throw new Error("Admin token கிடைக்கவில்லை.");
-        }
+                <i class="fas fa-user-shield me-2"></i>
 
-        const response = await fetch(
-            `${API_BASE}/orders/admin`,
-            {
-                method: "GET",
-                headers: {
-                    "Authorization":
-                        `Bearer ${session.token}`
-                }
-            }
-        );
+                ${escapeHtml(
+                    session.name || 'Admin'
+                )}
 
-        const data = await response.json();
+                (${escapeHtml(
+                    session.role
+                )})
 
-        if (!response.ok) {
-
-            if (response.status === 401) {
-                localStorage.removeItem(SESSION_KEY);
-
-                showLogin(
-                    "Admin session expired. மீண்டும் login செய்யவும்."
-                );
-
-                return;
-            }
-
-            if (response.status === 403) {
-                throw new Error(
-                    "Admin / Owner access மட்டும் அனுமதிக்கப்படும்."
-                );
-            }
-
-            throw new Error(
-                data.message ||
-                "Orders load செய்ய முடியவில்லை."
-            );
-        }
-
-        const orders =
-            Array.isArray(data.orders)
-                ? data.orders
-                : [];
-
-        if (orders.length === 0) {
-
-            ordersTableBody.innerHTML = `
-                <tr>
-                    <td colspan="6"
-                        class="text-center text-secondary py-5">
-
-                        <i class="fas fa-inbox fa-2x mb-2 d-block"></i>
-
-                        Customer orders எதுவும் இல்லை.
-                    </td>
-                </tr>
             `;
 
-            return;
+
+            loadAdminOrders();
+
         }
 
-        ordersTableBody.innerHTML =
-            orders.map(order => {
 
-                const itemsSummary =
-                    Array.isArray(order.items)
-                        ? order.items.map(item =>
-                            `${item.quantity}x ${escapeHtml(item.name)}`
-                        ).join(", ")
-                        : "No items";
+        // =====================================================
+        // LOAD REAL CUSTOMER ORDERS
+        // =====================================================
 
-                const status =
-                    order.status || "Confirmed";
+        async function loadAdminOrders() {
 
-                const statusClass =
-                    getOrderStatusClass(status);
+            const ordersTableBody =
+                document.getElementById(
+                    "ordersTableBody"
+                );
 
-                const createdAt =
-                    order.createdAt
-                        ? new Date(order.createdAt)
-                            .toLocaleString("en-IN", {
-                                day: "2-digit",
-                                month: "short",
-                                year: "numeric",
-                                hour: "2-digit",
-                                minute: "2-digit"
-                            })
-                        : "—";
 
-                return `
+            try {
+
+                const sessionStr =
+                    localStorage.getItem(
+                        SESSION_KEY
+                    );
+
+
+                if (!sessionStr) {
+
+                    throw new Error(
+                        "Admin session கிடைக்கவில்லை."
+                    );
+
+                }
+
+
+                const session =
+                    JSON.parse(sessionStr);
+
+
+                if (!session.token) {
+
+                    throw new Error(
+                        "Admin token கிடைக்கவில்லை."
+                    );
+
+                }
+
+
+                const response =
+                    await fetch(
+                        `${API_BASE}/orders/admin`,
+                        {
+                            method: "GET",
+
+                            headers: {
+                                "Authorization":
+                                    `Bearer ${session.token}`
+                            }
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (!response.ok) {
+
+
+                    if (
+                        response.status === 401
+                    ) {
+
+                        localStorage.removeItem(
+                            SESSION_KEY
+                        );
+
+                        showLogin(
+                            "Admin session expired. மீண்டும் login செய்யவும்."
+                        );
+
+                        return;
+                    }
+
+
+                    if (
+                        response.status === 403
+                    ) {
+
+                        throw new Error(
+                            "Admin / Owner access மட்டும் அனுமதிக்கப்படும்."
+                        );
+
+                    }
+
+
+                    throw new Error(
+                        data.message ||
+                        "Orders load செய்ய முடியவில்லை."
+                    );
+
+                }
+
+
+                const orders =
+                    Array.isArray(data.orders)
+                        ? data.orders
+                        : [];
+
+
+                if (orders.length === 0) {
+
+                    ordersTableBody.innerHTML = `
+
+                        <tr>
+
+                            <td
+                                colspan="6"
+                                class="text-center text-secondary py-5"
+                            >
+
+                                <i
+                                    class="fas fa-inbox fa-2x mb-2 d-block"
+                                ></i>
+
+                                Customer orders எதுவும் இல்லை.
+
+                            </td>
+
+                        </tr>
+
+                    `;
+
+                    updateOrderStats([]);
+
+                    return;
+
+                }
+
+
+                ordersTableBody.innerHTML =
+
+                    orders.map(order => {
+
+                        const itemsSummary =
+
+                            Array.isArray(order.items)
+
+                                ? order.items
+                                    .map(item =>
+                                        `${item.quantity}x ${escapeHtml(item.name)}`
+                                    )
+                                    .join(", ")
+
+                                : "No items";
+
+
+                        const status =
+                            order.status ||
+                            "Confirmed";
+
+
+                        const statusClass =
+                            getOrderStatusClass(
+                                status
+                            );
+
+
+                        const createdAt =
+                            order.createdAt
+
+                                ? new Date(
+                                    order.createdAt
+                                ).toLocaleString(
+                                    "en-IN",
+                                    {
+                                        day: "2-digit",
+                                        month: "short",
+                                        year: "numeric",
+                                        hour: "2-digit",
+                                        minute: "2-digit"
+                                    }
+                                )
+
+                                : "—";
+
+
+                        return `
+
+                            <tr>
+
+                                <td>
+
+                                    <strong>
+                                        #${escapeHtml(
+                                            order.orderNumber ||
+                                            "N/A"
+                                        )}
+                                    </strong>
+
+                                    <div class="small text-secondary mt-1">
+                                        ${createdAt}
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+
+                                    <strong>
+                                        ${escapeHtml(
+                                            order.customerName ||
+                                            "Customer"
+                                        )}
+                                    </strong>
+
+                                    <div class="small text-secondary">
+                                        ${escapeHtml(
+                                            order.customerPhone ||
+                                            ""
+                                        )}
+                                    </div>
+
+                                    <div class="small text-secondary">
+                                        ${escapeHtml(
+                                            order.customerEmail ||
+                                            ""
+                                        )}
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="order-items-summary">
+                                        ${itemsSummary}
+                                    </div>
+
+                                    <div class="small text-secondary mt-1">
+                                        ${escapeHtml(
+                                            order.orderType ||
+                                            "Delivery"
+                                        )}
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+
+                                    <strong class="order-amount">
+                                        ₹${Number(
+                                            order.total || 0
+                                        ).toLocaleString("en-IN")}
+                                    </strong>
+
+                                    <div class="small text-secondary">
+                                        ${escapeHtml(
+                                            order.paymentMethod ||
+                                            "Cash on Delivery"
+                                        )}
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+
+                                    <span
+                                        class="badge-status ${statusClass}"
+                                    >
+                                        ${escapeHtml(status)}
+                                    </span>
+
+                                </td>
+
+
+                                <td>
+
+                                    <button
+                                        type="button"
+                                        class="btn btn-sm btn-outline-warning"
+                                        onclick="showOrderDetails('${escapeHtml(
+                                            order.orderNumber || ""
+                                        )}')"
+                                    >
+
+                                        <i class="fas fa-eye me-1"></i>
+
+                                        View
+
+                                    </button>
+
+                                </td>
+
+                            </tr>
+
+                        `;
+
+                    }).join("");
+
+
+                window.adminOrders =
+                    orders;
+
+
+                updateOrderStats(
+                    orders
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "Load Admin Orders Error:",
+                    error
+                );
+
+
+                ordersTableBody.innerHTML = `
+
                     <tr>
 
-                        <td>
-                            <strong>
-                                #${escapeHtml(
-                                    order.orderNumber || "N/A"
-                                )}
-                            </strong>
+                        <td
+                            colspan="6"
+                            class="text-center text-danger py-5"
+                        >
 
-                            <div class="small text-secondary">
-                                ${createdAt}
-                            </div>
-                        </td>
+                            <i
+                                class="fas fa-triangle-exclamation me-2"
+                            ></i>
 
-                        <td>
-
-                            <strong>
-                                ${escapeHtml(
-                                    order.customerName || "Customer"
-                                )}
-                            </strong>
-
-                            <div class="small text-secondary">
-                                ${escapeHtml(
-                                    order.customerPhone || ""
-                                )}
-                            </div>
-
-                            <div class="small text-secondary">
-                                ${escapeHtml(
-                                    order.customerEmail || ""
-                                )}
-                            </div>
-
-                        </td>
-
-                        <td>
-
-                            ${itemsSummary}
-
-                            <div class="small text-secondary mt-1">
-                                ${escapeHtml(
-                                    order.orderType || "Delivery"
-                                )}
-                            </div>
-
-                        </td>
-
-                        <td>
-
-                            <strong>
-                                ₹${Number(
-                                    order.total || 0
-                                ).toLocaleString("en-IN")}
-                            </strong>
-
-                            <div class="small text-secondary">
-                                ${escapeHtml(
-                                    order.paymentMethod ||
-                                    "Cash on Delivery"
-                                )}
-                            </div>
-
-                        </td>
-
-                        <td>
-
-                            <span class="badge-status ${statusClass}">
-                                ${escapeHtml(status)}
-                            </span>
-
-                        </td>
-
-                        <td>
-
-                            <button
-                                class="btn btn-sm btn-outline-warning"
-                                onclick="showOrderDetails('${escapeHtml(
-                                    order.orderNumber || ""
-                                )}')">
-
-                                <i class="fas fa-eye me-1"></i>
-                                View
-
-                            </button>
+                            ${escapeHtml(
+                                error.message ||
+                                "Orders load செய்ய முடியவில்லை."
+                            )}
 
                         </td>
 
                     </tr>
+
                 `;
 
-            }).join("");
-
-        window.adminOrders = orders;
-
-        updateOrderStats(orders);
-
-    } catch (error) {
-
-        console.error(
-            "Load Admin Orders Error:",
-            error
-        );
-
-        ordersTableBody.innerHTML = `
-            <tr>
-                <td colspan="6"
-                    class="text-center text-danger py-4">
-
-                    <i class="fas fa-triangle-exclamation me-2"></i>
-
-                    ${escapeHtml(
-                        error.message ||
-                        "Orders load செய்ய முடியவில்லை."
-                    )}
-
-                </td>
-            </tr>
-        `;
-    }
-}
-
-
-// =====================================
-// STATUS BADGE
-// =====================================
-function getOrderStatusClass(status) {
-
-    const value =
-        String(status || "").toLowerCase();
-
-    if (value.includes("deliver")) {
-        return "badge-delivered";
-    }
-
-    if (value.includes("cancel")) {
-        return "badge-cancelled";
-    }
-
-    if (
-        value.includes("pending") ||
-        value.includes("processing") ||
-        value.includes("preparing")
-    ) {
-        return "badge-pending";
-    }
-
-    return "badge-confirmed";
-}
-
-
-// =====================================
-// UPDATE ORDER COUNT / REVENUE
-// =====================================
-function updateOrderStats(orders) {
-
-    const today = new Date();
-
-    const todayOrders =
-        orders.filter(order => {
-
-            if (!order.createdAt) {
-                return false;
             }
 
-            const date =
-                new Date(order.createdAt);
-
-            return (
-                date.getDate() === today.getDate() &&
-                date.getMonth() === today.getMonth() &&
-                date.getFullYear() === today.getFullYear()
-            );
-        });
-
-    const todayRevenue =
-        todayOrders.reduce(
-            (sum, order) =>
-                sum + Number(order.total || 0),
-            0
-        );
-
-    const statOrders =
-        document.getElementById("statOrders");
-
-    const statRevenue =
-        document.getElementById("statRevenue");
-
-    if (statOrders) {
-        statOrders.textContent =
-            todayOrders.length;
-    }
-
-    if (statRevenue) {
-        statRevenue.textContent =
-            `₹${todayRevenue.toLocaleString("en-IN")}`;
-    }
-}
+        }
 
 
-// =====================================
-// VIEW ORDER DETAILS
-// =====================================
-function showOrderDetails(orderNumber) {
+        // =====================================================
+        // STATUS BADGE
+        // =====================================================
 
-    const order =
-        (window.adminOrders || [])
-            .find(
-                item =>
-                    item.orderNumber === orderNumber
-            );
+        function getOrderStatusClass(status) {
 
-    if (!order) {
-        alert("Order details கிடைக்கவில்லை.");
-        return;
-    }
-
-    const items =
-        Array.isArray(order.items)
-            ? order.items.map(item =>
-                `${item.quantity}x ${item.name} - ₹${Number(
-                    item.price
-                ).toLocaleString("en-IN")}`
-            ).join("\n")
-            : "No items";
-
-    alert(
-        `ORDER: ${order.orderNumber}\n\n` +
-
-        `Customer: ${order.customerName}\n` +
-
-        `Phone: ${order.customerPhone}\n` +
-
-        `Email: ${order.customerEmail}\n\n` +
-
-        `Order Type: ${order.orderType || "Delivery"}\n` +
-
-        `Payment: ${
-            order.paymentMethod ||
-            "Cash on Delivery"
-        }\n` +
-
-        `Status: ${
-            order.status ||
-            "Confirmed"
-        }\n\n` +
-
-        `Items:\n${items}\n\n` +
-
-        `Subtotal: ₹${Number(
-            order.subtotal || 0
-        ).toLocaleString("en-IN")}\n` +
-
-        `Delivery: ₹${Number(
-            order.deliveryCharge || 0
-        ).toLocaleString("en-IN")}\n` +
-
-        `Total: ₹${Number(
-            order.total || 0
-        ).toLocaleString("en-IN")}\n\n` +
-
-        `Address: ${
-            order.deliveryAddress || "N/A"
-        }\n` +
-
-        `Special Requests: ${
-            order.specialRequests || "None"
-        }`
-    );
-}
+            const value =
+                String(status || "")
+                    .toLowerCase();
 
 
-// =====================================
-// HTML SECURITY
-// =====================================
-function escapeHtml(value) {
+            if (
+                value.includes("deliver")
+            ) {
 
-    return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-}
+                return "badge-delivered";
 
-        // Login Handler
-        loginForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            loginErrorAlert.style.display = 'none';
-            loginSubmitBtn.disabled = true;
-            loginSubmitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Verifying...';
+            }
 
-            const email = adminEmailInput.value.trim();
-            const password = adminPasswordInput.value;
 
-            try {
-                const res = await fetch(`${API_BASE}/auth/login`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, password })
+            if (
+                value.includes("cancel")
+            ) {
+
+                return "badge-cancelled";
+
+            }
+
+
+            if (
+                value.includes("pending") ||
+                value.includes("processing") ||
+                value.includes("preparing")
+            ) {
+
+                return "badge-pending";
+
+            }
+
+
+            return "badge-confirmed";
+
+        }
+
+
+        // =====================================================
+        // UPDATE ORDER STATS
+        // =====================================================
+
+        function updateOrderStats(orders) {
+
+            const today =
+                new Date();
+
+
+            const todayOrders =
+                orders.filter(order => {
+
+                    if (!order.createdAt) {
+
+                        return false;
+
+                    }
+
+
+                    const date =
+                        new Date(
+                            order.createdAt
+                        );
+
+
+                    return (
+
+                        date.getDate() ===
+                            today.getDate()
+
+                        &&
+
+                        date.getMonth() ===
+                            today.getMonth()
+
+                        &&
+
+                        date.getFullYear() ===
+                            today.getFullYear()
+
+                    );
+
                 });
 
-                const data = await res.json();
 
-                if (!res.ok) {
-                    throw new Error(data.message || `Authentication failed (HTTP ${res.status})`);
-                }
+            const todayRevenue =
+                todayOrders.reduce(
+                    (sum, order) =>
+                        sum +
+                        Number(
+                            order.total || 0
+                        ),
+                    0
+                );
 
-                const role = (data.user?.role || 'customer').toUpperCase();
 
-                if (role !== 'ADMIN' && role !== 'OWNER') {
-                    throw new Error('403 Forbidden: Access denied. This account does not possess restaurant administrator or owner privileges.');
-                }
+            const statOrders =
+                document.getElementById(
+                    "statOrders"
+                );
 
-                const session = {
-                    token: data.token,
-                    name: data.user.name || 'Restaurant Manager',
-                    email: data.user.email,
-                    role: role,
-                    timestamp: Date.now()
-                };
 
-                localStorage.setItem(SESSION_KEY, JSON.stringify(session));
-                showDashboard(session);
-            } catch (err) {
-                loginErrorAlert.innerText = err.message || 'Unable to connect to server. Please check internet connection.';
-                loginErrorAlert.style.display = 'block';
-            } finally {
-                loginSubmitBtn.disabled = false;
-                loginSubmitBtn.innerHTML = '<i class="fas fa-key me-2"></i> Authenticate & Open Portal';
+            const statRevenue =
+                document.getElementById(
+                    "statRevenue"
+                );
+
+
+            if (statOrders) {
+
+                statOrders.textContent =
+                    todayOrders.length;
+
             }
-        });
 
-        // Logout Handler
-        logoutBtn.addEventListener('click', () => {
-            localStorage.removeItem(SESSION_KEY);
-            showLogin();
-        });
 
-        // Initialize
+            if (statRevenue) {
+
+                statRevenue.textContent =
+                    `₹${todayRevenue.toLocaleString("en-IN")}`;
+
+            }
+
+        }
+
+
+        // =====================================================
+        // ORDER DETAILS
+        // =====================================================
+
+        function showOrderDetails(orderNumber) {
+
+            const order =
+                (window.adminOrders || [])
+                    .find(
+                        item =>
+                            item.orderNumber ===
+                            orderNumber
+                    );
+
+
+            if (!order) {
+
+                alert(
+                    "Order details கிடைக்கவில்லை."
+                );
+
+                return;
+
+            }
+
+
+            const items =
+                Array.isArray(order.items)
+
+                    ? order.items
+                        .map(item =>
+                            `${item.quantity}x ${item.name} - ₹${Number(
+                                item.price
+                            ).toLocaleString("en-IN")}`
+                        )
+                        .join("\n")
+
+                    : "No items";
+
+
+            alert(
+
+                `ORDER: ${order.orderNumber}\n\n` +
+
+                `Customer: ${order.customerName}\n` +
+
+                `Phone: ${order.customerPhone}\n` +
+
+                `Email: ${order.customerEmail}\n\n` +
+
+                `Order Type: ${
+                    order.orderType ||
+                    "Delivery"
+                }\n` +
+
+                `Payment: ${
+                    order.paymentMethod ||
+                    "Cash on Delivery"
+                }\n` +
+
+                `Status: ${
+                    order.status ||
+                    "Confirmed"
+                }\n\n` +
+
+                `Items:\n${items}\n\n` +
+
+                `Subtotal: ₹${Number(
+                    order.subtotal || 0
+                ).toLocaleString("en-IN")}\n` +
+
+                `Delivery: ₹${Number(
+                    order.deliveryCharge || 0
+                ).toLocaleString("en-IN")}\n` +
+
+                `Total: ₹${Number(
+                    order.total || 0
+                ).toLocaleString("en-IN")}\n\n` +
+
+                `Address: ${
+                    order.deliveryAddress ||
+                    "N/A"
+                }\n` +
+
+                `Special Requests: ${
+                    order.specialRequests ||
+                    "None"
+                }`
+
+            );
+
+        }
+
+
+        // =====================================================
+        // HTML SECURITY
+        // =====================================================
+
+        function escapeHtml(value) {
+
+            return String(
+                value ?? ""
+            )
+
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
+
+        }
+
+
+        // =====================================================
+        // LOGIN HANDLER
+        // =====================================================
+
+        loginForm.addEventListener(
+            'submit',
+            async (e) => {
+
+                e.preventDefault();
+
+
+                loginErrorAlert.style.display =
+                    'none';
+
+
+                loginSubmitBtn.disabled =
+                    true;
+
+
+                loginSubmitBtn.innerHTML =
+                    '<i class="fas fa-spinner fa-spin me-2"></i> Verifying...';
+
+
+                const email =
+                    adminEmailInput.value.trim();
+
+
+                const password =
+                    adminPasswordInput.value;
+
+
+                try {
+
+                    const res =
+                        await fetch(
+                            `${API_BASE}/auth/login`,
+                            {
+                                method: 'POST',
+
+                                headers: {
+                                    'Content-Type':
+                                        'application/json'
+                                },
+
+                                body:
+                                    JSON.stringify({
+                                        email,
+                                        password
+                                    })
+                            }
+                        );
+
+
+                    const data =
+                        await res.json();
+
+
+                    if (!res.ok) {
+
+                        throw new Error(
+                            data.message ||
+                            `Authentication failed (HTTP ${res.status})`
+                        );
+
+                    }
+
+
+                    const role =
+                        (
+                            data.user?.role ||
+                            'customer'
+                        ).toUpperCase();
+
+
+                    if (
+                        role !== 'ADMIN' &&
+                        role !== 'OWNER'
+                    ) {
+
+                        throw new Error(
+                            '403 Forbidden: Access denied. This account does not possess restaurant administrator or owner privileges.'
+                        );
+
+                    }
+
+
+                    const session = {
+
+                        token:
+                            data.token,
+
+                        name:
+                            data.user.name ||
+                            'Restaurant Manager',
+
+                        email:
+                            data.user.email,
+
+                        role:
+                            role,
+
+                        timestamp:
+                            Date.now()
+
+                    };
+
+
+                    localStorage.setItem(
+                        SESSION_KEY,
+                        JSON.stringify(session)
+                    );
+
+
+                    showDashboard(
+                        session
+                    );
+
+
+                } catch (err) {
+
+                    loginErrorAlert.innerText =
+                        err.message ||
+                        'Unable to connect to server. Please check internet connection.';
+
+
+                    loginErrorAlert.style.display =
+                        'block';
+
+
+                } finally {
+
+                    loginSubmitBtn.disabled =
+                        false;
+
+
+                    loginSubmitBtn.innerHTML =
+                        '<i class="fas fa-key me-2"></i> Authenticate & Open Portal';
+
+                }
+
+            }
+        );
+
+
+        // =====================================================
+        // LOGOUT
+        // =====================================================
+
+        logoutBtn.addEventListener(
+            'click',
+            () => {
+
+                localStorage.removeItem(
+                    SESSION_KEY
+                );
+
+                showLogin();
+
+            }
+        );
+
+
+        // =====================================================
+        // INITIALIZE
+        // =====================================================
+
         checkSession();
+
     </script>
+
 </body>
 </html>

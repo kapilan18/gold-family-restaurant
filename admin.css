@@ -1,0 +1,2022 @@
+/* =========================================================
+   GOLD FAMILY RESTAURANT
+   PREMIUM ADMIN DASHBOARD
+   admin.css
+   ========================================================= */
+
+/* =========================================================
+   1. ROOT / GLOBAL
+   ========================================================= */
+
+:root {
+    --admin-bg: #0a0a0c;
+    --admin-bg-soft: #101014;
+    --admin-sidebar: #0d0d10;
+    --admin-card: #151519;
+    --admin-card-hover: #1b1b21;
+    --admin-card-elevated: #202027;
+
+    --admin-gold: #d4af37;
+    --admin-gold-light: #f3e5ab;
+    --admin-gold-dark: #9e7c19;
+    --admin-gold-soft: rgba(212, 175, 55, 0.12);
+    --admin-gold-border: rgba(212, 175, 55, 0.28);
+
+    --admin-white: #ffffff;
+    --admin-text: #eeeeee;
+    --admin-muted: #9b9ba5;
+    --admin-muted-2: #70707a;
+
+    --admin-border: rgba(255, 255, 255, 0.07);
+    --admin-border-light: rgba(255, 255, 255, 0.11);
+
+    --admin-success: #32d583;
+    --admin-success-soft: rgba(50, 213, 131, 0.12);
+
+    --admin-warning: #f5b942;
+    --admin-warning-soft: rgba(245, 185, 66, 0.12);
+
+    --admin-danger: #ff5c5c;
+    --admin-danger-soft: rgba(255, 92, 92, 0.12);
+
+    --admin-info: #5ca9ff;
+    --admin-info-soft: rgba(92, 169, 255, 0.12);
+
+    --admin-radius-sm: 8px;
+    --admin-radius: 14px;
+    --admin-radius-lg: 20px;
+
+    --admin-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.28);
+
+    --admin-shadow-gold:
+        0 10px 35px rgba(212, 175, 55, 0.08);
+
+    --admin-transition:
+        0.25s ease;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(212, 175, 55, 0.045),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at bottom left,
+            rgba(212, 175, 55, 0.025),
+            transparent 28%
+        ),
+        var(--admin-bg);
+
+    color: var(--admin-text);
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    min-height: 100vh;
+}
+
+/* =========================================================
+   2. TEXT SELECTION
+   ========================================================= */
+
+::selection {
+    background: rgba(212, 175, 55, 0.25);
+    color: #ffffff;
+}
+
+/* =========================================================
+   3. SCROLLBAR
+   ========================================================= */
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0b0b0e;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #35353c;
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--admin-gold-dark);
+}
+
+/* =========================================================
+   4. LOGIN SECTION
+   ========================================================= */
+
+#adminLoginSection {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px 18px;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(212, 175, 55, 0.08),
+            transparent 38%
+        ),
+        #08080a;
+}
+
+/* Login card */
+
+#adminLoginSection .card {
+    width: 100%;
+    max-width: 470px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.045),
+            rgba(255, 255, 255, 0.015)
+        );
+
+    border: 1px solid var(--admin-gold-border) !important;
+
+    border-radius: 24px !important;
+
+    box-shadow:
+        0 30px 90px rgba(0, 0, 0, 0.55),
+        0 0 60px rgba(212, 175, 55, 0.04);
+
+    backdrop-filter: blur(18px);
+
+    overflow: hidden;
+}
+
+/* Login card top gold line */
+
+#adminLoginSection .card::before {
+    content: "";
+    display: block;
+    height: 3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--admin-gold),
+            var(--admin-gold-light),
+            var(--admin-gold),
+            transparent
+        );
+}
+
+/* Login logo */
+
+#adminLoginSection .fa-crown {
+    color: var(--admin-gold) !important;
+
+    filter:
+        drop-shadow(
+            0 0 12px rgba(212, 175, 55, 0.28)
+        );
+}
+
+/* Login heading */
+
+#adminLoginSection h2,
+#adminLoginSection h3,
+#adminLoginSection h4 {
+    color: var(--admin-white);
+}
+
+/* Login labels */
+
+#adminLoginSection label {
+    color: #c7c7ce;
+    font-weight: 600;
+    font-size: 0.86rem;
+}
+
+/* =========================================================
+   5. INPUTS
+   ========================================================= */
+
+.form-control,
+.form-select {
+    background-color: #101014 !important;
+
+    border: 1px solid var(--admin-border-light) !important;
+
+    color: var(--admin-white) !important;
+
+    border-radius: 10px !important;
+
+    min-height: 46px;
+
+    transition:
+        border-color var(--admin-transition),
+        box-shadow var(--admin-transition),
+        background-color var(--admin-transition);
+}
+
+.form-control::placeholder {
+    color: #62626b !important;
+}
+
+.form-control:hover,
+.form-select:hover {
+    border-color: rgba(212, 175, 55, 0.22) !important;
+}
+
+.form-control:focus,
+.form-select:focus {
+    background-color: #121217 !important;
+
+    border-color: var(--admin-gold) !important;
+
+    box-shadow:
+        0 0 0 3px rgba(212, 175, 55, 0.10),
+        0 8px 25px rgba(0, 0, 0, 0.18) !important;
+
+    color: #ffffff !important;
+}
+
+/* =========================================================
+   6. BUTTONS
+   ========================================================= */
+
+.btn {
+    border-radius: 10px !important;
+
+    font-weight: 700;
+
+    transition:
+        transform var(--admin-transition),
+        box-shadow var(--admin-transition),
+        background-color var(--admin-transition),
+        border-color var(--admin-transition);
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+/* Gold buttons */
+
+.btn-warning,
+.btn-gold {
+    background:
+        linear-gradient(
+            135deg,
+            #b88a1c,
+            #d4af37,
+            #f1d76a
+        ) !important;
+
+    border: none !important;
+
+    color: #090909 !important;
+
+    box-shadow:
+        0 8px 25px rgba(212, 175, 55, 0.14);
+}
+
+.btn-warning:hover,
+.btn-gold:hover {
+    background:
+        linear-gradient(
+            135deg,
+            #d4af37,
+            #f3df83
+        ) !important;
+
+    color: #080808 !important;
+
+    box-shadow:
+        0 12px 30px rgba(212, 175, 55, 0.22);
+}
+
+/* =========================================================
+   7. DASHBOARD HEADER
+   ========================================================= */
+
+.admin-header {
+    position: sticky;
+    top: 0;
+
+    z-index: 1000;
+
+    min-height: 76px;
+
+    padding: 0 28px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background:
+        rgba(10, 10, 12, 0.90);
+
+    border-bottom:
+        1px solid var(--admin-border);
+
+    backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.18);
+}
+
+/* Brand */
+
+.admin-header h1,
+.admin-header h2,
+.admin-header h3 {
+    color: #ffffff;
+}
+
+.admin-header .fa-crown {
+    color: var(--admin-gold) !important;
+}
+
+.admin-header small,
+.admin-header .text-muted {
+    color: var(--admin-muted) !important;
+}
+
+/* Admin badge */
+
+#adminNameBadge {
+    background:
+        rgba(212, 175, 55, 0.08) !important;
+
+    border:
+        1px solid rgba(212, 175, 55, 0.20);
+
+    color: var(--admin-gold-light) !important;
+
+    padding: 9px 14px;
+
+    border-radius: 999px;
+
+    font-size: 0.78rem;
+
+    font-weight: 700;
+}
+
+/* =========================================================
+   8. MAIN DASHBOARD
+   ========================================================= */
+
+#adminDashboardSection {
+    min-height: calc(100vh - 76px);
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,255,255,0.008),
+            transparent
+        );
+}
+
+/* Main container */
+
+#adminDashboardSection .container,
+#adminDashboardSection .container-fluid {
+    position: relative;
+}
+
+/* =========================================================
+   9. DASHBOARD TITLES
+   ========================================================= */
+
+#adminDashboardSection h1,
+#adminDashboardSection h2,
+#adminDashboardSection h3,
+#adminDashboardSection h4,
+#adminDashboardSection h5 {
+    color: var(--admin-white);
+}
+
+#adminDashboardSection .text-muted {
+    color: var(--admin-muted) !important;
+}
+
+/* Gold heading accent */
+
+.admin-section-title {
+    position: relative;
+}
+
+.admin-section-title::after {
+    content: "";
+
+    display: block;
+
+    width: 45px;
+    height: 3px;
+
+    margin-top: 9px;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--admin-gold),
+            transparent
+        );
+}
+
+/* =========================================================
+   10. STAT CARDS
+   ========================================================= */
+
+#statOrders,
+#statRevenue,
+#statReservations,
+#statDishes {
+    color: #ffffff;
+}
+
+/* Bootstrap card override */
+
+#adminDashboardSection .card {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.045),
+            rgba(255, 255, 255, 0.015)
+        );
+
+    border:
+        1px solid var(--admin-border) !important;
+
+    border-radius:
+        var(--admin-radius) !important;
+
+    color: var(--admin-text);
+
+    box-shadow:
+        var(--admin-shadow);
+
+    transition:
+        transform var(--admin-transition),
+        border-color var(--admin-transition),
+        box-shadow var(--admin-transition);
+}
+
+#adminDashboardSection .card:hover {
+    transform: translateY(-3px);
+
+    border-color:
+        rgba(212, 175, 55, 0.20) !important;
+
+    box-shadow:
+        var(--admin-shadow),
+        var(--admin-shadow-gold);
+}
+
+/* Stat card icons */
+
+.stat-card-icon {
+    width: 46px;
+    height: 46px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background:
+        var(--admin-gold-soft);
+
+    color:
+        var(--admin-gold);
+
+    border:
+        1px solid var(--admin-gold-border);
+}
+
+/* =========================================================
+   11. NAVIGATION TABS
+   ========================================================= */
+
+.nav-tabs {
+    border-bottom:
+        1px solid var(--admin-border) !important;
+
+    gap: 5px;
+
+    padding-bottom: 0;
+}
+
+.nav-tabs .nav-link {
+    position: relative;
+
+    border:
+        none !important;
+
+    border-radius:
+        10px 10px 0 0 !important;
+
+    background:
+        transparent !important;
+
+    color:
+        var(--admin-muted) !important;
+
+    padding:
+        13px 18px;
+
+    font-weight: 700;
+
+    transition:
+        color var(--admin-transition),
+        background-color var(--admin-transition);
+}
+
+.nav-tabs .nav-link:hover {
+    color:
+        var(--admin-gold-light) !important;
+
+    background:
+        rgba(212, 175, 55, 0.05) !important;
+}
+
+.nav-tabs .nav-link.active {
+    color:
+        var(--admin-gold-light) !important;
+
+    background:
+        rgba(212, 175, 55, 0.07) !important;
+}
+
+/* Active gold line */
+
+.nav-tabs .nav-link.active::after {
+    content: "";
+
+    position: absolute;
+
+    left: 14px;
+    right: 14px;
+    bottom: -1px;
+
+    height: 2px;
+
+    background:
+        var(--admin-gold);
+
+    border-radius:
+        10px 10px 0 0;
+}
+
+/* =========================================================
+   12. ORDERS TABLE CONTAINER
+   ========================================================= */
+
+.table-responsive {
+    border-radius:
+        var(--admin-radius);
+
+    overflow-x: auto;
+
+    border:
+        1px solid var(--admin-border);
+
+    background:
+        rgba(255, 255, 255, 0.012);
+}
+
+/* =========================================================
+   13. TABLE
+   ========================================================= */
+
+.table {
+    margin-bottom: 0 !important;
+
+    color:
+        var(--admin-text) !important;
+
+    --bs-table-bg:
+        transparent;
+
+    --bs-table-color:
+        var(--admin-text);
+}
+
+.table thead th {
+    background:
+        #111115 !important;
+
+    color:
+        #aaaab4 !important;
+
+    border-bottom:
+        1px solid var(--admin-border-light) !important;
+
+    border-top:
+        none !important;
+
+    padding:
+        15px 16px !important;
+
+    font-size:
+        0.73rem;
+
+    text-transform:
+        uppercase;
+
+    letter-spacing:
+        0.08em;
+
+    font-weight:
+        800;
+
+    white-space:
+        nowrap;
+}
+
+.table tbody td {
+    background:
+        transparent !important;
+
+    color:
+        #dedee4 !important;
+
+    border-color:
+        rgba(255,255,255,0.055) !important;
+
+    padding:
+        16px !important;
+
+    vertical-align:
+        middle;
+}
+
+.table tbody tr {
+    transition:
+        background-color var(--admin-transition);
+}
+
+.table tbody tr:hover {
+    background:
+        rgba(212, 175, 55, 0.035) !important;
+}
+
+.table tbody tr:hover td {
+    color:
+        #ffffff !important;
+}
+
+/* Order number */
+
+.table tbody td:first-child {
+    color:
+        var(--admin-gold-light) !important;
+
+    font-weight:
+        800;
+
+    white-space:
+        nowrap;
+}
+
+/* =========================================================
+   14. STATUS BADGES
+   ========================================================= */
+
+.badge {
+    border-radius:
+        999px !important;
+
+    padding:
+        6px 10px !important;
+
+    font-size:
+        0.70rem !important;
+
+    font-weight:
+        800 !important;
+
+    letter-spacing:
+        0.02em;
+}
+
+/* Confirmed */
+
+.badge.bg-success,
+.status-confirmed {
+    background:
+        var(--admin-success-soft) !important;
+
+    color:
+        var(--admin-success) !important;
+
+    border:
+        1px solid rgba(50, 213, 131, 0.18);
+}
+
+/* Pending */
+
+.badge.bg-warning,
+.status-pending {
+    background:
+        var(--admin-warning-soft) !important;
+
+    color:
+        var(--admin-warning) !important;
+
+    border:
+        1px solid rgba(245, 185, 66, 0.18);
+}
+
+/* Cancelled */
+
+.badge.bg-danger,
+.status-cancelled {
+    background:
+        var(--admin-danger-soft) !important;
+
+    color:
+        var(--admin-danger) !important;
+
+    border:
+        1px solid rgba(255, 92, 92, 0.18);
+}
+
+/* Info */
+
+.badge.bg-info,
+.status-info {
+    background:
+        var(--admin-info-soft) !important;
+
+    color:
+        var(--admin-info) !important;
+
+    border:
+        1px solid rgba(92, 169, 255, 0.18);
+}
+
+/* =========================================================
+   15. VIEW BUTTON
+   ========================================================= */
+
+.table .btn {
+    font-size:
+        0.75rem;
+
+    padding:
+        7px 12px;
+}
+
+.table .btn-outline-primary {
+    color:
+        var(--admin-gold-light) !important;
+
+    border-color:
+        rgba(212, 175, 55, 0.35) !important;
+
+    background:
+        rgba(212, 175, 55, 0.05) !important;
+}
+
+.table .btn-outline-primary:hover {
+    background:
+        var(--admin-gold) !important;
+
+    border-color:
+        var(--admin-gold) !important;
+
+    color:
+        #090909 !important;
+}
+
+/* =========================================================
+   16. LIVE ORDER INDICATOR
+   ========================================================= */
+
+.live-indicator {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    color:
+        var(--admin-success);
+
+    font-size:
+        0.75rem;
+
+    font-weight:
+        700;
+}
+
+.live-indicator::before {
+    content: "";
+
+    width: 8px;
+    height: 8px;
+
+    border-radius:
+        50%;
+
+    background:
+        var(--admin-success);
+
+    box-shadow:
+        0 0 0 4px rgba(50, 213, 131, 0.08);
+
+    animation:
+        adminPulse 1.8s infinite;
+}
+
+@keyframes adminPulse {
+    0% {
+        box-shadow:
+            0 0 0 0 rgba(50, 213, 131, 0.35);
+    }
+
+    70% {
+        box-shadow:
+            0 0 0 7px rgba(50, 213, 131, 0);
+    }
+
+    100% {
+        box-shadow:
+            0 0 0 0 rgba(50, 213, 131, 0);
+    }
+}
+
+/* =========================================================
+   17. ALERTS
+   ========================================================= */
+
+.alert {
+    border-radius:
+        12px !important;
+
+    border:
+        1px solid var(--admin-border) !important;
+
+    background:
+        rgba(255,255,255,0.035) !important;
+
+    color:
+        var(--admin-text) !important;
+}
+
+.alert-danger {
+    background:
+        var(--admin-danger-soft) !important;
+
+    border-color:
+        rgba(255,92,92,0.20) !important;
+
+    color:
+        #ff8b8b !important;
+}
+
+.alert-success {
+    background:
+        var(--admin-success-soft) !important;
+
+    border-color:
+        rgba(50,213,131,0.20) !important;
+
+    color:
+        #73e8aa !important;
+}
+
+.alert-warning {
+    background:
+        var(--admin-warning-soft) !important;
+
+    border-color:
+        rgba(245,185,66,0.20) !important;
+
+    color:
+        #ffd779 !important;
+}
+
+/* =========================================================
+   18. MODAL
+   ========================================================= */
+
+.modal-backdrop {
+    background:
+        #000000 !important;
+}
+
+.modal-backdrop.show {
+    opacity:
+        0.78 !important;
+}
+
+.modal-content {
+    background:
+        linear-gradient(
+            145deg,
+            #17171c,
+            #101014
+        ) !important;
+
+    border:
+        1px solid var(--admin-gold-border) !important;
+
+    border-radius:
+        20px !important;
+
+    color:
+        var(--admin-text) !important;
+
+    box-shadow:
+        0 30px 100px rgba(0,0,0,0.65),
+        0 0 70px rgba(212,175,55,0.06);
+
+    overflow:
+        hidden;
+}
+
+.modal-header {
+    background:
+        rgba(212,175,55,0.035);
+
+    border-bottom:
+        1px solid var(--admin-border) !important;
+
+    padding:
+        20px 24px;
+}
+
+.modal-title {
+    color:
+        #ffffff !important;
+
+    font-weight:
+        800;
+}
+
+.modal-title i {
+    color:
+        var(--admin-gold) !important;
+}
+
+.modal-body {
+    padding:
+        24px;
+}
+
+.modal-footer {
+    background:
+        rgba(255,255,255,0.015);
+
+    border-top:
+        1px solid var(--admin-border) !important;
+
+    padding:
+        16px 24px;
+}
+
+.btn-close {
+    filter:
+        invert(1)
+        grayscale(1);
+
+    opacity:
+        0.7;
+}
+
+.btn-close:hover {
+    opacity:
+        1;
+}
+
+/* =========================================================
+   19. ORDER DETAIL BOXES
+   ========================================================= */
+
+.order-detail-card {
+    background:
+        rgba(255,255,255,0.025);
+
+    border:
+        1px solid var(--admin-border);
+
+    border-radius:
+        12px;
+
+    padding:
+        16px;
+
+    margin-bottom:
+        14px;
+}
+
+.order-detail-card:hover {
+    border-color:
+        rgba(212,175,55,0.18);
+}
+
+.order-detail-title {
+    color:
+        var(--admin-gold-light);
+
+    font-size:
+        0.76rem;
+
+    font-weight:
+        800;
+
+    text-transform:
+        uppercase;
+
+    letter-spacing:
+        0.08em;
+
+    margin-bottom:
+        8px;
+}
+
+/* =========================================================
+   20. ORDER ITEMS
+   ========================================================= */
+
+.order-item-row {
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        15px;
+
+    padding:
+        13px 0;
+
+    border-bottom:
+        1px solid rgba(255,255,255,0.055);
+}
+
+.order-item-row:last-child {
+    border-bottom:
+        none;
+}
+
+.order-item-name {
+    color:
+        #ffffff;
+
+    font-weight:
+        700;
+}
+
+.order-item-meta {
+    color:
+        var(--admin-muted);
+
+    font-size:
+        0.78rem;
+}
+
+.order-item-price {
+    color:
+        var(--admin-gold-light);
+
+    font-weight:
+        800;
+
+    white-space:
+        nowrap;
+}
+
+/* =========================================================
+   21. TOTAL / PRICE
+   ========================================================= */
+
+.order-total {
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    padding-top:
+        14px;
+
+    margin-top:
+        10px;
+
+    border-top:
+        1px solid var(--admin-border-light);
+
+    color:
+        #ffffff;
+
+    font-weight:
+        800;
+}
+
+.order-total strong {
+    color:
+        var(--admin-gold-light);
+
+    font-size:
+        1.25rem;
+}
+
+/* =========================================================
+   22. TIMELINE
+   ========================================================= */
+
+.order-timeline {
+    position:
+        relative;
+
+    padding-left:
+        28px;
+}
+
+.order-timeline::before {
+    content:
+        "";
+
+    position:
+        absolute;
+
+    top:
+        5px;
+
+    bottom:
+        5px;
+
+    left:
+        8px;
+
+    width:
+        1px;
+
+    background:
+        rgba(212,175,55,0.22);
+}
+
+.timeline-item {
+    position:
+        relative;
+
+    padding-bottom:
+        18px;
+}
+
+.timeline-item:last-child {
+    padding-bottom:
+        0;
+}
+
+.timeline-item::before {
+    content:
+        "";
+
+    position:
+        absolute;
+
+    left:
+        -24px;
+
+    top:
+        4px;
+
+    width:
+        10px;
+
+    height:
+        10px;
+
+    border-radius:
+        50%;
+
+    background:
+        var(--admin-gold);
+
+    box-shadow:
+        0 0 0 4px rgba(212,175,55,0.08);
+}
+
+.timeline-item-title {
+    color:
+        #ffffff;
+
+    font-size:
+        0.86rem;
+
+    font-weight:
+        700;
+}
+
+.timeline-item-time {
+    color:
+        var(--admin-muted-2);
+
+    font-size:
+        0.73rem;
+}
+
+/* =========================================================
+   23. SEARCH / FILTER AREA
+   ========================================================= */
+
+.admin-toolbar {
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        12px;
+
+    flex-wrap:
+        wrap;
+
+    margin-bottom:
+        16px;
+}
+
+.admin-search {
+    position:
+        relative;
+
+    flex:
+        1 1 260px;
+
+    max-width:
+        380px;
+}
+
+.admin-search i {
+    position:
+        absolute;
+
+    left:
+        14px;
+
+    top:
+        50%;
+
+    transform:
+        translateY(-50%);
+
+    color:
+        var(--admin-muted-2);
+
+    pointer-events:
+        none;
+}
+
+.admin-search input {
+    padding-left:
+        42px;
+}
+
+/* =========================================================
+   24. DROPDOWN
+   ========================================================= */
+
+.dropdown-menu {
+    background:
+        #17171c !important;
+
+    border:
+        1px solid var(--admin-border-light) !important;
+
+    border-radius:
+        12px !important;
+
+    box-shadow:
+        var(--admin-shadow) !important;
+
+    padding:
+        7px !important;
+}
+
+.dropdown-item {
+    color:
+        #d6d6dc !important;
+
+    border-radius:
+        8px;
+
+    padding:
+        9px 12px;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+    background:
+        rgba(212,175,55,0.08) !important;
+
+    color:
+        var(--admin-gold-light) !important;
+}
+
+/* =========================================================
+   25. EMPTY STATE
+   ========================================================= */
+
+.admin-empty-state {
+    text-align:
+        center;
+
+    padding:
+        60px 20px;
+
+    color:
+        var(--admin-muted);
+}
+
+.admin-empty-state i {
+    font-size:
+        42px;
+
+    color:
+        var(--admin-gold-dark);
+
+    margin-bottom:
+        16px;
+}
+
+.admin-empty-state h4 {
+    color:
+        #ffffff;
+
+    margin-bottom:
+        7px;
+}
+
+/* =========================================================
+   26. LOADING STATE
+   ========================================================= */
+
+.admin-loading {
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        10px;
+
+    min-height:
+        180px;
+
+    color:
+        var(--admin-muted);
+}
+
+.admin-loading .spinner-border {
+    color:
+        var(--admin-gold) !important;
+}
+
+/* =========================================================
+   27. SKELETON
+   ========================================================= */
+
+.admin-skeleton {
+    position:
+        relative;
+
+    overflow:
+        hidden;
+
+    background:
+        #1b1b20;
+
+    border-radius:
+        8px;
+}
+
+.admin-skeleton::after {
+    content:
+        "";
+
+    position:
+        absolute;
+
+    inset:
+        0;
+
+    transform:
+        translateX(-100%);
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,0.05),
+            transparent
+        );
+
+    animation:
+        adminSkeleton 1.4s infinite;
+}
+
+@keyframes adminSkeleton {
+    100% {
+        transform:
+            translateX(100%);
+    }
+}
+
+/* =========================================================
+   28. TOAST
+   ========================================================= */
+
+.toast {
+    background:
+        #18181d !important;
+
+    border:
+        1px solid var(--admin-border-light) !important;
+
+    color:
+        #ffffff !important;
+
+    border-radius:
+        12px !important;
+
+    box-shadow:
+        var(--admin-shadow) !important;
+}
+
+.toast-header {
+    background:
+        transparent !important;
+
+    color:
+        #ffffff !important;
+
+    border-bottom:
+        1px solid var(--admin-border) !important;
+}
+
+/* =========================================================
+   29. PAGINATION
+   ========================================================= */
+
+.pagination .page-link {
+    background:
+        #141419;
+
+    border:
+        1px solid var(--admin-border);
+
+    color:
+        var(--admin-muted);
+
+    margin:
+        0 2px;
+
+    border-radius:
+        8px !important;
+}
+
+.pagination .page-link:hover {
+    background:
+        var(--admin-gold-soft);
+
+    border-color:
+        var(--admin-gold-border);
+
+    color:
+        var(--admin-gold-light);
+}
+
+.pagination .page-item.active .page-link {
+    background:
+        var(--admin-gold);
+
+    border-color:
+        var(--admin-gold);
+
+    color:
+        #080808;
+}
+
+/* =========================================================
+   30. CHECKBOX / RADIO
+   ========================================================= */
+
+.form-check-input {
+    background-color:
+        #101014;
+
+    border-color:
+        #44444c;
+}
+
+.form-check-input:checked {
+    background-color:
+        var(--admin-gold);
+
+    border-color:
+        var(--admin-gold);
+}
+
+.form-check-input:focus {
+    box-shadow:
+        0 0 0 3px rgba(212,175,55,0.10);
+}
+
+/* =========================================================
+   31. MENU / RESERVATION PANELS
+   ========================================================= */
+
+#menuPane,
+#reservationsPane,
+#ordersPane {
+    animation:
+        adminFadeIn 0.3s ease;
+}
+
+@keyframes adminFadeIn {
+    from {
+        opacity:
+            0;
+
+        transform:
+            translateY(5px);
+    }
+
+    to {
+        opacity:
+            1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+/* =========================================================
+   32. MENU CARDS
+   ========================================================= */
+
+.menu-item-card {
+    background:
+        rgba(255,255,255,0.025);
+
+    border:
+        1px solid var(--admin-border);
+
+    border-radius:
+        14px;
+
+    padding:
+        18px;
+
+    transition:
+        transform var(--admin-transition),
+        border-color var(--admin-transition);
+}
+
+.menu-item-card:hover {
+    transform:
+        translateY(-2px);
+
+    border-color:
+        rgba(212,175,55,0.20);
+}
+
+.menu-item-card h5 {
+    color:
+        #ffffff;
+}
+
+.menu-item-card .price {
+    color:
+        var(--admin-gold-light);
+
+    font-weight:
+        800;
+}
+
+/* =========================================================
+   33. RESERVATION CARDS
+   ========================================================= */
+
+.reservation-card {
+    background:
+        rgba(255,255,255,0.025);
+
+    border:
+        1px solid var(--admin-border);
+
+    border-radius:
+        14px;
+
+    padding:
+        18px;
+}
+
+.reservation-card strong {
+    color:
+        #ffffff;
+}
+
+.reservation-card .reservation-time {
+    color:
+        var(--admin-gold-light);
+
+    font-weight:
+        700;
+}
+
+/* =========================================================
+   34. CUSTOMER / USER INFO
+   ========================================================= */
+
+.customer-name {
+    color:
+        #ffffff;
+
+    font-weight:
+        750;
+}
+
+.customer-contact {
+    color:
+        var(--admin-muted);
+
+    font-size:
+        0.76rem;
+
+    margin-top:
+        3px;
+}
+
+/* =========================================================
+   35. ICON BUTTONS
+   ========================================================= */
+
+.admin-icon-btn {
+    width:
+        38px;
+
+    height:
+        38px;
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border-radius:
+        10px;
+
+    border:
+        1px solid var(--admin-border);
+
+    background:
+        rgba(255,255,255,0.025);
+
+    color:
+        var(--admin-muted);
+
+    transition:
+        all var(--admin-transition);
+}
+
+.admin-icon-btn:hover {
+    color:
+        var(--admin-gold-light);
+
+    border-color:
+        var(--admin-gold-border);
+
+    background:
+        var(--admin-gold-soft);
+}
+
+/* =========================================================
+   36. GOLD DIVIDER
+   ========================================================= */
+
+.gold-divider {
+    width:
+        100%;
+
+    height:
+        1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(212,175,55,0.30),
+            transparent
+        );
+
+    margin:
+        20px 0;
+}
+
+/* =========================================================
+   37. FOOTER
+   ========================================================= */
+
+.admin-footer {
+    color:
+        var(--admin-muted-2);
+
+    border-top:
+        1px solid var(--admin-border);
+
+    padding:
+        22px 0;
+
+    font-size:
+        0.76rem;
+}
+
+.admin-footer strong {
+    color:
+        var(--admin-gold-light);
+}
+
+/* =========================================================
+   38. RESPONSIVE — TABLET
+   ========================================================= */
+
+@media (max-width: 991.98px) {
+
+    .admin-header {
+        padding:
+            0 18px;
+    }
+
+    .admin-header {
+        min-height:
+            68px;
+    }
+
+    #adminDashboardSection {
+        min-height:
+            calc(100vh - 68px);
+    }
+
+    .table thead th,
+    .table tbody td {
+        padding:
+            13px 12px !important;
+    }
+
+    .nav-tabs .nav-link {
+        padding:
+            11px 13px;
+    }
+}
+
+/* =========================================================
+   39. RESPONSIVE — MOBILE
+   ========================================================= */
+
+@media (max-width: 767.98px) {
+
+    body {
+        font-size:
+            0.92rem;
+    }
+
+    .admin-header {
+        position:
+            relative;
+
+        min-height:
+            auto;
+
+        padding:
+            15px;
+
+        flex-direction:
+            column;
+
+        align-items:
+            stretch;
+
+        gap:
+            13px;
+    }
+
+    .admin-header > * {
+        width:
+            100%;
+    }
+
+    #adminNameBadge {
+        display:
+            inline-flex;
+
+        width:
+            auto;
+    }
+
+    .admin-header .btn {
+        width:
+            100%;
+    }
+
+    #adminDashboardSection {
+        min-height:
+            auto;
+    }
+
+    #adminDashboardSection .card {
+        border-radius:
+            14px !important;
+    }
+
+    .nav-tabs {
+        overflow-x:
+            auto;
+
+        flex-wrap:
+            nowrap;
+
+        scrollbar-width:
+            none;
+    }
+
+    .nav-tabs::-webkit-scrollbar {
+        display:
+            none;
+    }
+
+    .nav-tabs .nav-link {
+        white-space:
+            nowrap;
+
+        flex-shrink:
+            0;
+    }
+
+    .table {
+        min-width:
+            780px;
+    }
+
+    .table-responsive {
+        border-radius:
+            12px;
+    }
+
+    .modal-dialog {
+        margin:
+            10px;
+    }
+
+    .modal-body {
+        padding:
+            18px;
+    }
+
+    .modal-header {
+        padding:
+            17px 18px;
+    }
+
+    .modal-footer {
+        padding:
+            14px 18px;
+    }
+
+    .admin-toolbar {
+        align-items:
+            stretch;
+    }
+
+    .admin-search {
+        max-width:
+            none;
+
+        flex-basis:
+            100%;
+    }
+}
+
+/* =========================================================
+   40. RESPONSIVE — SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    #adminLoginSection {
+        padding:
+            18px 12px;
+    }
+
+    #adminLoginSection .card {
+        border-radius:
+            18px !important;
+    }
+
+    .btn {
+        min-height:
+            44px;
+    }
+
+    .modal-content {
+        border-radius:
+            16px !important;
+    }
+
+    .order-detail-card {
+        padding:
+            13px;
+    }
+
+    .order-total strong {
+        font-size:
+            1.05rem;
+    }
+}
+
+/* =========================================================
+   41. ACCESSIBILITY
+   ========================================================= */
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline:
+        2px solid var(--admin-gold);
+
+    outline-offset:
+        2px;
+}
+
+/* =========================================================
+   42. REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior:
+            auto !important;
+
+        animation-duration:
+            0.01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+
+        transition-duration:
+            0.01ms !important;
+    }
+}
+
+/* =========================================================
+   END OF GOLD FAMILY ADMIN CSS
+   ========================================================= */

@@ -11,7 +11,7 @@ const router = express.Router();
 // =====================================
 router.post("/register", async (req, res) => {
     try {
-        const { name, email, phone, password } = req.body;
+        const { name, email, phone, password } = req.body || {};
 
         if (!name || !email || !phone || !password) {
             return res.status(400).json({
@@ -49,7 +49,7 @@ router.post("/register", async (req, res) => {
             name: name.trim(),
             email: normalizedEmail,
             phone: normalizedPhone,
-            password: hashedPassword
+            password: hashedPassword,
         });
 
         // Generate token immediately on registration
@@ -67,7 +67,8 @@ router.post("/register", async (req, res) => {
                 id: user._id,
                 name: user.name,
                 email: user.email,
-                phone: user.phone
+                phone: user.phone,
+                role: user.role
             }
         });
     } catch (error) {
@@ -90,7 +91,7 @@ router.post("/register", async (req, res) => {
 // =====================================
 router.post("/login", async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { email, password } = req.body || {};
 
         if (!email || !password) {
             return res.status(400).json({
@@ -134,7 +135,8 @@ router.post("/login", async (req, res) => {
                 id: user._id,
                 name: user.name,
                 email: user.email,
-                phone: user.phone
+                phone: user.phone,
+                role: user.role,
             }
         });
     } catch (error) {

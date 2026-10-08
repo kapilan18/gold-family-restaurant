@@ -1,4 +1,3 @@
-
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema(
@@ -28,6 +27,14 @@ const userSchema = new mongoose.Schema(
             type: String,
             required: true,
             minlength: 6
+        },
+
+        role: {
+            type: String,
+            enum: ["CUSTOMER", "ADMIN", "OWNER"],
+            default: "CUSTOMER",
+            uppercase: true,
+            trim: true
         }
     },
     {
@@ -35,5 +42,4 @@ const userSchema = new mongoose.Schema(
     }
 );
 
-module.exports =
-    mongoose.model("User", userSchema);
+module.exports = mongoose.model("User", userSchema);
